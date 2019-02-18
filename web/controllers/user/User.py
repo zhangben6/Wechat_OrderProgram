@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint,render_template,request,jsonify
+from flask import Blueprint, render_template, request, jsonify, make_response, redirect
 from common.models.User import User
 from common.libs.user.UserService import UserService
+import json
+from application import app
+from common.libs.UrlManager import UrlManager
+
 
 route_user = Blueprint( 'user_page',__name__ )
 
@@ -40,7 +44,10 @@ def login():
         resp['msg'] = '请输入正确的用户名和密码 -2 ~~'
         return jsonify(resp)
 
-    return jsonify(resp)
+    response = make_response(json.dumps(resp))
+    response.set_cookie(app.config['AUTH_COOKIE_NAME'],'%s#%s'%(UserService.geneAuthCode(user_info),user_info.uid))
+
+    return response
 
 @route_user.route( "/edit" )
 def edit():
@@ -49,3 +56,19 @@ def edit():
 @route_user.route( "/reset-pwd" )
 def resetPwd():
     return render_template( "user/reset_pwd.html" )
+
+# 退出操作就是清理cookie,让拦截器拦截并跳到登录页面
+@route_user.route('/logout')
+def logout():
+    response = make_response(redirect(UrlManager.buildUrl('/user/login')))
+    response.delete_cookie(app.config['AUTH_COOKIE_NAME'])
+    return response
+
+
+
+
+
+
+
+
+
