@@ -1,0 +1,6 @@
+
+flask
+flask-sqlalchemy
+pymysql
+flask_script
+flask-sqlacodegen 方便快速生成 ORM model
