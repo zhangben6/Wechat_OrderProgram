@@ -23,6 +23,6 @@ IGNORE_CHECK_LOGIN_URLS = [
 
 # 帐号管理设置页面config参数设置
 # 每页的数量
-PAGE_SIZE = 50
+PAGE_SIZE = 1
 # 展示栏页数
 PAGE_DISPLAY = 10
