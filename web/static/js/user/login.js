@@ -18,6 +18,7 @@ var user_login_ops = {
            var login_pwd = $(".login_wrap input[name=login_pwd]").val();
 
            if(login_name == undefined || login_name.length<1){
+               console.log(login_name)
                common_ops.alert("请输入正确的登录用户名~~1");
                return;
            }

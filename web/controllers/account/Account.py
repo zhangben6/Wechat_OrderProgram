@@ -5,6 +5,7 @@ from common.models.User import User
 from common.libs.UrlManager import UrlManager
 from application import app,db
 from common.libs.user.UserService import UserService
+from sqlalchemy import or_
 
 
 
@@ -17,10 +18,23 @@ def index():
     # 分页功能的实现
     resp_data = {}
     req = request.values
+
+    # 分页功能详解
     page = int(req['p']) if ('p' in req and req['p']) else 1
     query = User.query
 
+    # 搜索功能实现
+    if 'mix_kw' in req:
+        rule = or_(
+            User.nickname.ilike("%{0}".format(req['mix_kw'])),
+            User.mobile.ilike("%{0}".format(req['mix_kw']))
+        )
+        query = query.filter(rule)
 
+    if 'status' in req and int(req['status']) > -1:
+        query = query.filter(User.status == int(req['status']))
+
+    app.logger.info(query)
     page_params={
         'total':query.count(),
         'page_size':app.config['PAGE_SIZE'],
@@ -29,17 +43,19 @@ def index():
         'url': request.full_path.replace('&={}'.format(page),''),
 
     }
-    app.logger.info(page_params)
-
     pages = iPagination(page_params)
 
     offset = (page-1) * app.config['PAGE_SIZE']
     limit = app.config['PAGE_SIZE']*page
-
-    list = User.query.order_by(User.uid.desc()).all()[offset:limit]
+    list = query.order_by(User.uid.desc()).all()[offset:limit]
 
     resp_data['list'] = list
     resp_data['pages'] = pages
+    # 将搜索框的字段利用前端模板传递参数展示出来
+    resp_data['search_con'] = req
+    resp_data['status_mapping'] = app.config['STATUS_MAPPING']
+
+
     return ops_render( "account/index.html",resp_data )
 
 @route_account.route( "/info" )
