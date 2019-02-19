@@ -61,6 +61,7 @@ def check_login():
     if user_info is None:
         return False
 
+    # 判断cookie是否一致
     if auth_info[0] != UserService.geneAuthCode(user_info):
         return False
 

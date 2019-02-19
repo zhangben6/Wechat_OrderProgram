@@ -47,14 +47,14 @@ def login():
         return jsonify(resp)
 
     response = make_response(json.dumps(resp))
-    response.set_cookie(app.config['AUTH_COOKIE_NAME'],'%s#%s'%(UserService.geneAuthCode(user_info),user_info.uid))
+    response.set_cookie(app.config['AUTH_COOKIE_NAME'],'%s#%s'%(UserService.geneAuthCode(user_info),user_info.uid),60*60*24*120) # 保存30天
 
     return response
 
 @route_user.route( "/edit",methods=['GET','POST'])
 def edit():
     if request.method == 'GET':
-        return ops_render( "user/edit.html" )
+        return ops_render( "user/edit.html",{'current':'edit'})
 
     # post提交方式:  设置json返回的数据
     resp = {'code':200,'msg':'操作成功','data':{}}
@@ -89,9 +89,45 @@ def edit():
     db.session.commit()
     return jsonify(resp)
 
-@route_user.route( "/reset-pwd" )
+@route_user.route("/reset-pwd",methods=['GET','POST'])
 def resetPwd():
-    return ops_render( "user/reset_pwd.html" )
+    if request.method == 'GET':
+        return ops_render( "user/reset_pwd.html",{'current':'reset-pwd'})
+
+    # post提交方式:  设置json返回的数据
+    resp = {'code': 200, 'msg': '操作成功', 'data': {}}
+    # 获取前端提交过来的post数据, 进行三木判断
+    req = request.values
+    old_password = req['old_password'] if 'old_password' in req else ''
+    new_password = req['new_password'] if 'new_password' in req else ''
+
+    if old_password is None or len(old_password) < 6:
+        resp['code'] = -1
+        resp['msg'] = '请输入符合规范的原密码!'
+        return jsonify(resp)
+
+    if new_password is None or len(new_password) < 6:
+        resp['code'] = -1
+        resp['msg'] = '请输入符合规范的新密码!'
+        return jsonify(resp)
+
+    if old_password == new_password:
+        resp['code'] = -1
+        resp['msg'] = '新密码和原密码不能相同!'
+        return jsonify(resp)
+
+    # 密码更改,保存进数据库
+    user_info = g.current_user
+    # 使用自定义的加密方法对用户输入的密码进行加密并保存进数据库
+    user_info.login_pwd = UserService.genePwd(new_password,user_info.login_salt)
+    db.session.add(user_info)
+    db.session.commit()
+
+    # 此时如果不刷新cookies会导致页面回到登录页
+    response = make_response(json.dumps(resp))
+    response.set_cookie(app.config['AUTH_COOKIE_NAME'], '%s#%s' % (UserService.geneAuthCode(user_info), user_info.uid),
+                        60 * 60 * 24 * 120)  # 保存30天
+    return response
 
 # 退出操作就是清理cookie,让拦截器拦截并跳到登录页面
 @route_user.route('/logout')
