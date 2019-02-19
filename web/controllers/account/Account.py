@@ -157,6 +157,43 @@ def set():
     db.session.commit()
     return jsonify(resp) # 成功添加
 
+@route_account.route('/ops',methods=['POST'])
+def ops():
+    # 定义json数据格式用于交互
+    resp = {'code':200,'msg':'操作成功!','data':{}}
+    req = request.values
+
+    id = req['id'] if 'id' in req else ''
+    act = req['act'] if 'act' in req else ''
+    if not id :
+        resp['code'] = -1
+        resp['msg'] = '请选择要操作的帐号'
+        return jsonify(resp)
+
+    if act not in ['remove','recover']:
+        resp['code'] = -1
+        resp['msg'] = '操作有误,请重试'
+        return jsonify(resp)
+
+    user_info = User.query.filter_by(uid=id).first()
+    if not user_info:
+        resp['code'] = -1
+        resp['msg'] = '指定帐号不存在'
+        return jsonify(resp)
+
+    # 接下来是查到有用户数据的判断
+    if act == 'remove':
+        user_info.status = 0
+    elif act == 'recover':
+        user_info.status = 1
+
+    # 保存进数据库
+    # 更新用户的'更新'字段
+    user_info.update_time = getCurrentDate()
+    db.session.add(user_info)
+    db.session.commit()
+    return jsonify(resp)
+
 
 
 
