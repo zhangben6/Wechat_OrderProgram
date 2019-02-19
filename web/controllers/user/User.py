@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, request, jsonify, make_response, redirect
+from flask import Blueprint, request, jsonify, make_response, redirect, g
 from common.models.User import User
 from common.libs.user.UserService import UserService
+from common.libs.Helper import ops_render
 import json
 from application import app
 from common.libs.UrlManager import UrlManager
+from application import db
 
 
 route_user = Blueprint( 'user_page',__name__ )
@@ -12,7 +14,7 @@ route_user = Blueprint( 'user_page',__name__ )
 @route_user.route( "/login",methods=['GET','POST'])
 def login():
     if request.method == 'GET':
-        return render_template( "user/login.html" )
+        return ops_render( "user/login.html" )
 
     # 设置json格式的数据用于返回错误信息给用户
     resp = {'code':200,'msg':'登录成功','data':{}}
@@ -49,13 +51,47 @@ def login():
 
     return response
 
-@route_user.route( "/edit" )
+@route_user.route( "/edit",methods=['GET','POST'])
 def edit():
-    return render_template( "user/edit.html" )
+    if request.method == 'GET':
+        return ops_render( "user/edit.html" )
+
+    # post提交方式:  设置json返回的数据
+    resp = {'code':200,'msg':'操作成功','data':{}}
+
+    #获取前端提交过来的post数据,进行三木判断
+    req = request.values
+    mobile = req['mobile'] if 'mobile' in req else ''
+    nickname = req['nickname'] if 'nickname' in req else ''
+    email = req['email'] if 'email' in req else ''
+
+    if mobile is None or len(mobile) > 11:
+        resp['code'] = -1
+        resp['msg'] = '手机位数超过11位,请输入符合规范的手机号!'
+        return jsonify(resp)
+
+    if nickname is None or len(nickname) < 1:
+        resp['code'] = -1
+        resp['msg'] = '请输入符合规范的姓名!'
+        return jsonify(resp)
+
+    if email is None or len(email) < 1:
+        resp['code'] = -1
+        resp['msg'] = '请输入符合规范的邮箱!'
+        return jsonify(resp)
+
+    # 提交的数据符合规范后,提交到数据库
+    user_info = g.current_user
+    user_info.mobile = mobile
+    user_info.nickname = nickname
+    user_info.email = email
+    db.session.add(user_info)
+    db.session.commit()
+    return jsonify(resp)
 
 @route_user.route( "/reset-pwd" )
 def resetPwd():
-    return render_template( "user/reset_pwd.html" )
+    return ops_render( "user/reset_pwd.html" )
 
 # 退出操作就是清理cookie,让拦截器拦截并跳到登录页面
 @route_user.route('/logout')

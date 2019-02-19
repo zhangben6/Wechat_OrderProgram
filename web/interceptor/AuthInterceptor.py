@@ -3,7 +3,7 @@
 '''
 
 from application import app
-from flask import request,redirect
+from flask import request, redirect, g
 from common.models.User import User
 from common.libs.user.UserService import UserService
 from common.libs.UrlManager import UrlManager
@@ -24,7 +24,12 @@ def before_request():
 
     user_info = check_login()
 
-    app.logger.info(user_info)
+    # flask中的g方法可以获取用户的状态,传入'/'的视图处理函数
+    g.current_user = None
+    if user_info:
+        g.current_user = user_info
+
+    # app.logger.info(user_info)
 
     pattern = re.compile('%s' % '|'.join(ignore_urls))
     if pattern.match(path):
@@ -42,7 +47,7 @@ def before_request():
 def check_login():
     cookies = request.cookies
     auth_cookie = cookies[app.config['AUTH_COOKIE_NAME']] if app.config['AUTH_COOKIE_NAME'] in cookies else None
-    app.logger.info(auth_cookie)
+    # app.logger.info(auth_cookie)
     if auth_cookie is None:
         return False
     auth_info = auth_cookie.split('#')

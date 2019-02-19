@@ -25,7 +25,7 @@
                 </li>
                 <li class="default">
                     <a href="{{ buildUrl('/') }}"><i class="fa fa-dashboard fa-lg"></i>
-                        <span class="nav-label">仪表盘</span></a>
+                        <span class="nav-label">仪表盘 (首页)</span></a>
                 </li>
                 <li class="account">
                     <a href="{{ buildUrl('/account/index') }}"><i class="fa fa-user fa-lg"></i> <span
@@ -61,7 +61,7 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
 						<span class="m-r-sm text-muted welcome-message">
-                            欢迎使用编程浪子订餐管理管理后台
+                            Welcome To User rapzhang Order Management Program
                         </span>
                     </li>
                     <li class="dropdown user_info">
@@ -71,13 +71,13 @@
                         <ul class="dropdown-menu dropdown-messages">
                             <li>
                                 <div class="dropdown-messages-box">
-                                    姓名：xxxx <a href="{{ buildUrl('/user/edit') }}" class="pull-right">编辑</a>
+                                    姓名：{{current_user.nickname}} <a href="{{ buildUrl('/user/edit') }}" class="pull-right">编辑</a>
                                 </div>
                             </li>
                             <li class="divider"></li>
                             <li>
                                 <div class="dropdown-messages-box">
-                                    手机号码：xxxx
+                                    手机号码：{{current_user.mobile}}
                                 </div>
                             </li>
                             <li class="divider"></li>
