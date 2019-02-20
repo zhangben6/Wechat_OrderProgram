@@ -5,8 +5,8 @@ App({
     globalData: {
         userInfo: null,
         version: "1.0",
-        shopName: "rapzhang空间餐厅",
-        domain:"http://192.168.0.119:8999/api"
+        shopName: "Rapzhang空间餐厅",
+      domain:"http://192.168.43.136:8666/api"
     },
     tip:function( params ){
         var that = this;
@@ -56,5 +56,36 @@ App({
         return {
             'content-type': 'application/x-www-form-urlencoded'
         }
+    },
+    buildUrl: function (path, params) {
+      var url = this.globalData.domain + path;
+      var _paramUrl = '';
+      if (params) {
+        _paramUrl = Object.keys(params).map(function (k) {
+          return [encodeURIComponent(k), encodeURIComponent(k)].join('=');
+        }).join('&');
+        _paramUrl = '?' + _paramUrl
+      }
+      return url + _paramUrl;
+    },
+
+    // 取出缓存信息
+    getCache:function(key){
+        var value = undefined;
+
+        try{
+           value = wx.getStorageSync(key)
+        }catch(e){
+        }
+        return value;
+        
+    },
+    //存储缓存信息(cookies)
+    setCache:function(key,value){
+        wx.setStorage({
+          key: key,
+          data: value 
+        });
     }
+
 });
