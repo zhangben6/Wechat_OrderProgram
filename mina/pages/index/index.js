@@ -15,7 +15,9 @@ Page({
   onLoad:function(){
     wx.setNavigationBarTitle({
       title: app.globalData.shopName
-    })
+    });
+    // 登录时直接执行login方法
+    this.login()
   },
   onShow:function(){
 
@@ -37,5 +39,8 @@ Page({
         });
       }
     });
-  }
+  },
+    login:function () {
+
+    }
 });

@@ -13,9 +13,10 @@
       </view>
       <view class="bd">
          <image class="smalltitle" src="/images/more/confirm-word1.png"></image>
-        <view class="confirm-btn" bindtap='goToIndex'>
+        <!--<view class="confirm-btn" bindtap='goToIndex'>
           <text >走吧，订餐去</text>
-        </view>
+        </view>-->
+        <button class="confirm-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
         <text class="copyright">zhangben6</text>
       </view>
     </view>
