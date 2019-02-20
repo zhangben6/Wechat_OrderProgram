@@ -31,7 +31,7 @@ PAGE_DISPLAY = 10
 
 STATUS_MAPPING = {
     '1':'正常',
-    '0':'已删除'
+    '0': '已删除'
 }
 
 MINA_APP = {

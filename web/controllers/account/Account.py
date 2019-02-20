@@ -48,6 +48,8 @@ def index():
     offset = (page-1) * app.config['PAGE_SIZE']
     limit = app.config['PAGE_SIZE']*page
     list = query.order_by(User.uid.desc()).all()[offset:limit]
+    app.logger.info(list)
+
 
     resp_data['list'] = list
     resp_data['pages'] = pages
