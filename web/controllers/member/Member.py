@@ -89,6 +89,8 @@ def set():
         info = Member.query.filter_by(id=id).first()
         if not info:
             return redirect(reback_url)
+        if info.status != 1:
+            return redirect(reback_url)
         resp_data['info'] = info
         resp_data['current'] = 'index'
         app.logger.info(resp_data)
