@@ -67,6 +67,8 @@ def info():
     if id < 1:
         return redirect(reback_url)
     info = Member.query.filter_by(id = id).first()
+    app.logger.info(info)
+
     if not info:
         return redirect(reback_url)
 
@@ -121,3 +123,36 @@ def set():
 @route_member.route( "/comment" )
 def comment():
     return ops_render( "member/comment.html" )
+
+
+@route_member.route('/ops',methods=['POST'])
+def ops():
+    resp = {'code':200,'msg':'操作成功','data':{}}
+    req = request.values
+    id = req['id'] if 'id' in req else 0
+    act = req['act'] if 'act' in req else ''
+    if not id :
+        resp['code'] = -1
+        resp['msg'] = '请选择要操作的帐号'
+        return jsonify(resp)
+    if act not in ['remove','recover']:
+        resp['code'] = -1
+        resp['msg'] = '操作有误,请重试'
+        return jsonify(resp)
+    member_info = Member.query.filter_by(id=id).first()
+    if not member_info:
+        resp['code'] = -1
+        resp['msg'] = '指定会员不存在'
+        return jsonify(resp)
+
+    if act == 'remove':
+        member_info.status = 0
+    elif act == 'recover':
+        member_info.status = 1
+
+    # 更改时间的字段需要再操作以下
+    member_info.update_time = getCurrentDate()
+    db.session.add(member_info)
+    db.session.commit()
+
+    return jsonify(resp)
