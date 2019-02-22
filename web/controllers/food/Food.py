@@ -16,9 +16,15 @@ def info():
     return ops_render( "food/info.html" )
 
 
-@route_food.route( "/set" )
+@route_food.route( "/set",methods=['GET','POST'])
 def set():
-    return ops_render( "food/set.html" )
+    if request.method == 'GET':
+        resp_data = {}
+        cat_list = FoodCat.query.all()
+        app.logger.info(cat_list)
+        resp_data['cat_list']  = cat_list
+        resp_data['current'] = index
+    return ops_render("food/set.html", resp_data)
 
 
 @route_food.route( "/cat" )

@@ -24,10 +24,9 @@
                     <select name="cat_id" class="form-control select2-hidden-accessible" tabindex="-1"
                             aria-hidden="true">
                         <option value="0">请选择分类</option>
-                        <option value="8">东北菜</option>
-                        <option value="8">河南菜</option>
-                        <option value="8">广东菜</option>
-
+                        {% for item in cat_list %}
+                            <option value="{item.id}}">{{item.name}}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

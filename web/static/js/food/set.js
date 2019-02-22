@@ -28,7 +28,8 @@ var upload = {
 var food_set_ops = {
     init:function () {
         this.eventBind();
-        this.initEditor()
+        this.initEditor();
+        this.delete_img()
     },
     eventBind:function () {
 
@@ -73,6 +74,12 @@ var food_set_ops = {
             zIndex:4,
              serverUrl:common_ops.buildUrl(  '/upload/ueditor' )
         });
+    },
+    // 无刷新删除图片
+    delete_img:function () {
+        $(".wrap_food_set .del_image").unbind().click(function () {
+            $(this).parent().remove();
+        })
     }
 };
 

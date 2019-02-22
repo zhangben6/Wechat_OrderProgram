@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c08ee1d9-540b-42ed-93cc-96d46fd7d7aa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/upload/Upload.py" afterPath="$PROJECT_DIR$/web/controllers/upload/Upload.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/js/common.js" afterPath="$PROJECT_DIR$/web/static/js/common.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/food/Food.py" afterPath="$PROJECT_DIR$/web/controllers/food/Food.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/js/food/set.js" afterPath="$PROJECT_DIR$/web/static/js/food/set.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/food/set.html" afterPath="$PROJECT_DIR$/web/templates/food/set.html" />
     </list>
@@ -25,8 +24,8 @@
       <file leaf-file-name="set.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/templates/food/set.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="90" column="49" lean-forward="true" selection-start-line="90" selection-start-column="49" selection-end-line="90" selection-end-column="49" />
+            <state relative-caret-position="252">
+              <caret line="27" column="75" lean-forward="true" selection-start-line="27" selection-start-column="75" selection-end-line="27" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -46,33 +45,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="set.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="set.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/static/js/food/set.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/static/js/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="150" column="31" lean-forward="true" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Image.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/models/Image.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="549">
+              <caret line="77" column="14" lean-forward="false" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="14" />
               <folding>
-                <element signature="e#16#72#0" expanded="true" />
+                <element signature="e#890#1372#0" expanded="false" />
+                <element signature="e#1418#2762#0" expanded="false" />
+                <element signature="e#2806#2931#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Food.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/controllers/food/Food.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+              <folding>
+                <element signature="e#24#79#0" expanded="true" />
+                <element signature="e#1422#2710#0" expanded="false" />
+                <element signature="e#2777#3701#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -144,7 +139,6 @@
         <option value="$PROJECT_DIR$/web/templates/food/cat.html" />
         <option value="$PROJECT_DIR$/demo.py" />
         <option value="$PROJECT_DIR$/web/controllers/member/Member.py" />
-        <option value="$PROJECT_DIR$/web/controllers/food/Food.py" />
         <option value="$PROJECT_DIR$/common/models/User.py" />
         <option value="$PROJECT_DIR$/common/models/food/FoodCat.py" />
         <option value="$PROJECT_DIR$/www.py" />
@@ -152,10 +146,11 @@
         <option value="$PROJECT_DIR$/config/base_setting.py" />
         <option value="$PROJECT_DIR$/common/libs/UploadService.py" />
         <option value="$PROJECT_DIR$/common/models/Image.py" />
-        <option value="$PROJECT_DIR$/web/templates/food/set.html" />
         <option value="$PROJECT_DIR$/web/controllers/upload/Upload.py" />
-        <option value="$PROJECT_DIR$/web/static/js/food/set.js" />
         <option value="$PROJECT_DIR$/web/static/js/common.js" />
+        <option value="$PROJECT_DIR$/web/static/js/food/set.js" />
+        <option value="$PROJECT_DIR$/web/templates/food/set.html" />
+        <option value="$PROJECT_DIR$/web/controllers/food/Food.py" />
       </list>
     </option>
   </component>
@@ -230,7 +225,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -248,11 +243,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="food" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="account" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -292,7 +309,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="upload" />
+              <option name="myItemId" value="account" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -636,13 +653,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/templates/account/info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/food/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -800,13 +810,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/controllers/account/Account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo.py" />
     <entry file="file://$PROJECT_DIR$/web/static/js/member/member.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -891,18 +894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/controllers/food/Food.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#79#0" expanded="false" />
-            <element signature="e#1184#2472#0" expanded="false" />
-            <element signature="e#2539#3463#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/static/plugins/ueditor/ueditor.all.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -983,15 +974,45 @@
         <state relative-caret-position="231">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
-            <element signature="e#16#72#0" expanded="true" />
+            <element signature="e#16#72#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/food/set.html">
+    <entry file="file://$PROJECT_DIR$/web/static/js/common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="90" column="49" lean-forward="true" selection-start-line="90" selection-start-column="49" selection-end-line="90" selection-end-column="49" />
+        <state relative-caret-position="570">
+          <caret line="150" column="31" lean-forward="true" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/static/js/food/set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="77" column="14" lean-forward="false" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="14" />
+          <folding>
+            <element signature="e#890#1372#0" expanded="false" />
+            <element signature="e#1418#2762#0" expanded="false" />
+            <element signature="e#2806#2931#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controllers/account/Account.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding>
+            <element signature="e#4628#5489#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/account/set.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1008,19 +1029,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/static/js/common.js">
+    <entry file="file://$PROJECT_DIR$/web/templates/food/set.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="150" column="31" lean-forward="true" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
+        <state relative-caret-position="252">
+          <caret line="27" column="75" lean-forward="true" selection-start-line="27" selection-start-column="75" selection-end-line="27" selection-end-column="75" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/static/js/food/set.js">
+    <entry file="file://$PROJECT_DIR$/web/controllers/food/Food.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-          <folding />
+        <state relative-caret-position="252">
+          <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+          <folding>
+            <element signature="e#24#79#0" expanded="true" />
+            <element signature="e#1422#2710#0" expanded="false" />
+            <element signature="e#2777#3701#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
