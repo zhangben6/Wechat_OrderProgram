@@ -31,8 +31,26 @@ def ueditor():
     if action == 'listimage':
         return listImage()
 
-
     return 'upload'
+
+@route_upload.route('/pic',methods=['GET','POST'])
+def uploadPic():
+    file_target = request.files
+    upfile = file_target['pic'] if 'pic' in file_target else None
+
+    # 调用iframe的父类js方法
+    callback_target = 'window.parent.upload'
+    if upfile is None:
+        return "<script type='text/javascript'>{0}.error('{1}')</script>".format(callback_target,"上传失败")
+
+    # 上传文件的操作,使用统一封装好的类
+    ret = UploadService.uploadByFile(upfile)
+    if ret['code'] != 200:
+        return "<script type='text/javascript'>{0}.error('{1}')</script>".format(callback_target,'上传失败' + ret['msg'])
+
+    return "<script type='text/javascript'>{0}.success('{1}')</script>".format(callback_target, ret['data']['file_key'])
+
+
 
 def uploadImage():
     resp = {'state':'SUCCESS','url':'','title':'','original':''}
@@ -46,7 +64,6 @@ def uploadImage():
     if ret['code'] != 200:
         resp['state'] = '上传失败' + ret['msg']
         return jsonify(resp)
-
     # 设置返回图片的url地址
     resp['url'] = UrlManager.buildImageUrl(ret['data']['file_key'])
     return jsonify(resp)
