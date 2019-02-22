@@ -38,3 +38,26 @@ MINA_APP = {
     'appid':'wx4d2ba3758c4fa9db',
     'appkey':'e6520fedd29877ea889d128af628038f'
 }
+
+# 用户上传图片用到的一些设置
+UPLOAD = {
+    'ext':['jpg','gif','bmp','png','jpeg'],
+    'prefix_path':'/web/static/upload/',
+    'prefix_url':'/status/upload'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
