@@ -1,6 +1,7 @@
 from werkzeug.utils import secure_filename
-from application import app
+from application import app,db
 from common.libs.Helper import getCurrentDate
+from common.models.Image import Image
 import os,stat,uuid
 
 class UploadService():
@@ -39,6 +40,14 @@ class UploadService():
 
         # 保存
         file.save('{0}/{1}'.format(save_dir,filename))
+
+        # 保存图片的file_key到数据库
+        model_image = Image()
+        model_image.file_key = file_dir + '/' + filename
+        model_image.created_time = getCurrentDate()
+        db.session.add(model_image)
+        db.session.commit()
+
         resp['data'] = {
             'file_key':file_dir + '/' + filename
         }
