@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c08ee1d9-540b-42ed-93cc-96d46fd7d7aa" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/1677bdb691ad44e4b7a0a3b15678d3a3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/440b5c1bdf1c4f41b54c8de367e16556.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/e2831240ad6c44aabb77abb408bf8399.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/libs/UploadService.py" afterPath="$PROJECT_DIR$/common/libs/UploadService.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/libs/UrlManager.py" afterPath="$PROJECT_DIR$/common/libs/UrlManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/base_setting.py" afterPath="$PROJECT_DIR$/config/base_setting.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/upload/Upload.py" afterPath="$PROJECT_DIR$/web/controllers/upload/Upload.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/12c53f9ed13f47bd95b522a22768d798.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/314f5bb2a398437992eb22f72eaac772.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/dc703c1ecc7f4cb2b46cada4a449b387.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/f08a361780144939800d8cde0da25309.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/static/upload/20190222/f17bf4c9a2ef43e48a62f4dd1cc9aa79.png" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,8 +46,8 @@
       <file leaf-file-name="Upload.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/controllers/upload/Upload.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="649">
-              <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+            <state relative-caret-position="355">
+              <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -476,9 +473,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1853" height="940" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12769486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12769486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -914,8 +910,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/upload/Upload.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="649">
-          <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+        <state relative-caret-position="355">
+          <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
