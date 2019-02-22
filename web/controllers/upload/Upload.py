@@ -2,6 +2,7 @@ from flask import Blueprint, g, request,jsonify
 from application import app
 import json,re
 from common.libs.UploadService import UploadService
+from common.libs.UrlManager import UrlManager
 
 
 route_upload = Blueprint('upload_page',__name__)
@@ -36,5 +37,7 @@ def uploadImage():
     if ret['code'] != 200:
         resp['state'] = '上传失败' + ret['msg']
         return jsonify(resp)
-    resp['url'] = ret['data']['file_key']
+
+    # 设置返回图片的url地址
+    resp['url'] = UrlManager.buildImageUrl(ret['data']['file_key'])
     return jsonify(resp)

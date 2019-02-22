@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from application import app
 
 class UrlManager(object):
     def __init__(self):
@@ -13,3 +14,10 @@ class UrlManager(object):
         ver = "%s"%( 22222222 )
         path =  "/static" + path + "?ver=" + ver
         return UrlManager.buildUrl( path )
+
+    @staticmethod
+    # 拼接图片显示的url地址
+    def buildImageUrl(path):
+        app_config = app.config['APP']
+        url = app_config['domain'] + app.config['UPLOAD']['prefix_url'] + path
+        return url

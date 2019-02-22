@@ -43,7 +43,12 @@ MINA_APP = {
 UPLOAD = {
     'ext':['jpg','gif','bmp','png','jpeg'],
     'prefix_path':'/web/static/upload/',
-    'prefix_url':'/status/upload'
+    'prefix_url':'/static/upload/'
+}
+
+# 设置自己主机的域名
+APP = {
+    'domain': 'http://192.168.43.136:8666',
 }
 
 

@@ -9,7 +9,10 @@ class UploadService():
         # 也需要定义resp用于返回信息
         config_upload = app.config['UPLOAD']
         resp = {'code':200,'msg':'操作成功',"data":{}}
-        filename = secure_filename(file.filename)
+        # 通过安全的方式获取文件名,但这里这个方法行不通
+        # filename = secure_filename(file.filename)
+        filename = file.filename
+        app.logger.info(filename)
         # 以第一个点进行切割,取后面的值
         ext = filename.rsplit('.',1)[1]
         if ext not in config_upload['ext']:
@@ -18,7 +21,7 @@ class UploadService():
             return resp
 
         # 获取保存图片的路径
-        root_path =  app.root_path + config_upload['prefix_path']
+        root_path = app.root_path + config_upload['prefix_path']
 
         # 文件夹的名称
         file_dir = getCurrentDate('%Y%m%d')
@@ -40,3 +43,5 @@ class UploadService():
             'file_key':file_dir + '/' + filename
         }
         return resp
+
+
