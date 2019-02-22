@@ -24,7 +24,10 @@
                     <select name="cat_id" class="form-control select2-hidden-accessible" tabindex="-1"
                             aria-hidden="true">
                         <option value="0">请选择分类</option>
-                        <option value="8">111</option>
+                        <option value="8">东北菜</option>
+                        <option value="8">河南菜</option>
+                        <option value="8">广东菜</option>
+
                     </select>
                 </div>
             </div>
@@ -86,10 +89,27 @@
     </div>
 </div>
 {% endblock %}
+
+<!--添加一个css,用来引入自定义的plugin插件 控制样式的选择-->
+{% block css %}
+<link href="{{ buildStaticUrl('/plugins/select2/select2.min.css') }}" rel="stylesheet">
+
+<!--添加一个css,用来引入自定义的plugin插件 控制标签的选择-->
+<link href="{{ buildStaticUrl('/plugins/tagsinput/jquery.tagsinput.min.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block js %}
 <script src="{{ buildStaticUrl('/plugins/ueditor/ueditor.config.js') }}"></script>
 <script src="{{ buildStaticUrl('/plugins/ueditor/ueditor.all.min.js') }}"></script>
 <script src="{{ buildStaticUrl('/plugins/ueditor/lang/zh-cn/zh-cn.js') }}"></script>
+
+<!--关于select2用到的js样式-->
+<script src="{{ buildStaticUrl('/plugins/select2/select2.pinyin.js') }}"></script>
+<script src="{{ buildStaticUrl('/plugins/select2/zh-CN.js') }}"></script>
+<script src="{{ buildStaticUrl('/plugins/select2/pinyin.core.js') }}"></script>
+<!--关于targsinput用到的js样式-->
+<script src="{{ buildStaticUrl('/plugins/tagsinput/jquery.tagsinput.min.js') }}"></script>
+
 <script src="{{ buildStaticUrl('/js/food/set.js') }}"></script>
 {% endblock %}
 

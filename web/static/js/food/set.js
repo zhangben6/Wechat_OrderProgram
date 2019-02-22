@@ -9,6 +9,17 @@ var food_set_ops = {
     },
     eventBind:function () {
 
+        // 样式 选择的绑定按钮处理函数
+        $(".wrap_food_set select[name=cat_id]").select2({
+           language:'zh-CN',
+            width: '100%'
+        });
+
+        //标签选择的按钮处理函数
+         $(".wrap_food_set input[name=tags]").tagsInput({
+             width: 'auto',
+             height:40
+        });
     },
     // 编辑器的初始化方法
     initEditor:function () {
@@ -32,7 +43,7 @@ var food_set_ops = {
             saveInterval:60000,  //60000秒后保存
             elementPathEnabled:false,
             zIndex:4,
-            serverUrl:common_ops.buildUrl(  '/upload/ueditor' )
+             serverUrl:common_ops.buildUrl(  '/upload/ueditor' )
         });
     }
 };
