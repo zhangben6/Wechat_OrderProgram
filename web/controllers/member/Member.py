@@ -154,6 +154,8 @@ def ops():
 
     # 更改时间的字段需要再操作以下
     member_info.update_time = getCurrentDate()
+    app.logger.info(member_info.status,member_info.update_time)
+
     db.session.add(member_info)
     db.session.commit()
 
