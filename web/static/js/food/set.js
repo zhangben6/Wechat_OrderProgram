@@ -1,10 +1,4 @@
-/**
- * Created by tarena on 19-2-22.
- */
 ;
-
-// 定义iframe中调用父类需要用到的window.error|success 方法
-// 切记需要iframe来协助实现无刷新上传
 var upload = {
     error: function (msg) {
         common_ops.alert(msg);
@@ -24,65 +18,156 @@ var upload = {
         food_set_ops.delete_img();
     }
 };
-
 var food_set_ops = {
-    init:function () {
+    init: function () {
+        this.ue = null;
         this.eventBind();
         this.initEditor();
-        this.delete_img()
+        this.delete_img();
     },
-    eventBind:function () {
+    eventBind: function () {
+        var that = this;
 
-        // 样式 选择的绑定按钮处理函数
-        $(".wrap_food_set select[name=cat_id]").select2({
-           language:'zh-CN',
-            width: '100%'
-        });
-
-        // 上传封面功能,监控函数时间
         $(".wrap_food_set .upload_pic_wrap input[name=pic]").change(function () {
             $(".wrap_food_set .upload_pic_wrap").submit();
         });
 
-        //标签选择的按钮处理函数
-         $(".wrap_food_set input[name=tags]").tagsInput({
-             width: 'auto',
-             height:40
+        $(".wrap_food_set select[name=cat_id]").select2({
+            language: "zh-CN",
+            width: '100%'
         });
-    },
-    // 编辑器的初始化方法
-    initEditor:function () {
-        var that = this;
-        // 括号里面第二个中括号字符串代表自定义的toolbar工具栏
-        that.ue = UE.getEditor('editor',{
-            toolbars: [
-        [ 'undo', 'redo', '|',
-            'bold', 'italic', 'underline', 'strikethrough', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall',  '|','rowspacingtop', 'rowspacingbottom', 'lineheight'],
-        [ 'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-            'directionalityltr', 'directionalityrtl', 'indent', '|',
-            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-            'link', 'unlink'],
-        [ 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'insertimage', 'insertvideo', '|',
-            'horizontal', 'spechars','|','inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols' ]
 
-        ],
-            // 不设置自动保存
-            enableAutoSave:true,
-            saveInterval:60000,  //60000秒后保存
-            elementPathEnabled:false,
-            zIndex:4,
-             serverUrl:common_ops.buildUrl(  '/upload/ueditor' )
+        $(".wrap_food_set input[name=tags]").tagsInput({
+            width: 'auto',
+            height: 40,
+            onAddTag: function (tag) {
+            },
+            onRemoveTag: function (tag) {
+            }
+        });
+
+        $(".wrap_food_set .save").click(function () {
+            var btn_target = $(this);
+            if (btn_target.hasClass("disabled")) {
+                common_ops.alert("正在处理!!请不要重复提交~~");
+                return;
+            }
+
+            var cat_id_target = $(".wrap_food_set select[name=cat_id]");
+            var cat_id = cat_id_target.val();
+
+            var name_target = $(".wrap_food_set input[name=name]");
+            var name = name_target.val();
+
+            var price_target = $(".wrap_food_set input[name=price]");
+            var price = price_target.val();
+
+            var summary = $.trim(that.ue.getContent());
+
+            var stock_target = $(".wrap_food_set input[name=stock]");
+            var stock = stock_target.val();
+
+            var tags_target = $(".wrap_food_set input[name=tags]");
+            var tags = $.trim(tags_target.val());
+
+            if (parseInt(cat_id) < 1) {
+                common_ops.tip("请选择分类~~", cat_id_target);
+                return;
+            }
+
+            if (name.length < 1) {
+                common_ops.alert("请输入符合规范的名称~~");
+                return;
+            }
+
+            if (parseFloat(price) <= 0) {
+                common_ops.tip("请输入符合规范的售卖价格~~", price_target);
+                return;
+            }
+
+            if ($(".wrap_food_set .pic-each").size() < 1) {
+                common_ops.alert("请上传封面图~~");
+                return;
+            }
+
+            if (summary.length < 10) {
+                common_ops.tip("请输入描述，并不能少于10个字符~~", price_target);
+                return;
+            }
+
+            if (parseInt(stock) < 1) {
+                common_ops.tip("请输入符合规范的库存量~~", stock_target);
+                return;
+            }
+
+            if (tags.length < 1) {
+                common_ops.alert("请输入标签，便于搜索~~");
+                return;
+            }
+
+            btn_target.addClass("disabled");
+
+            var data = {
+                cat_id: cat_id,
+                name: name,
+                price: price,
+                main_image: $(".wrap_food_set .pic-each .del_image").attr("data"),
+                summary: summary,
+                stock: stock,
+                tags: tags,
+                id: $(".wrap_food_set input[name=id]").val()
+            };
+
+            $.ajax({
+                url: common_ops.buildUrl("/food/set"),
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (res) {
+                    btn_target.removeClass("disabled");
+                    var callback = null;
+                    if (res.code == 200) {
+                        callback = function () {
+                            window.location.href = common_ops.buildUrl("/food/index");
+                        }
+                    }
+                    common_ops.alert(res.msg, callback);
+                }
+            });
+
+        });
+
+
+    },
+    initEditor: function () {
+        var that = this;
+        that.ue = UE.getEditor('editor', {
+            toolbars: [
+                ['undo', 'redo', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight'],
+                ['customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                    'directionalityltr', 'directionalityrtl', 'indent', '|',
+                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                    'link', 'unlink'],
+                ['imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                    'insertimage', 'insertvideo', '|',
+                    'horizontal', 'spechars', '|', 'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols']
+
+            ],
+            enableAutoSave: true,
+            saveInterval: 60000,
+            elementPathEnabled: false,
+            zIndex: 4,
+            serverUrl: common_ops.buildUrl('/upload/ueditor')
         });
     },
-    // 无刷新删除图片
-    delete_img:function () {
+    delete_img: function () {
         $(".wrap_food_set .del_image").unbind().click(function () {
             $(this).parent().remove();
-        })
+        });
     }
 };
 
 $(document).ready(function () {
-   food_set_ops.init();
+    food_set_ops.init();
 });

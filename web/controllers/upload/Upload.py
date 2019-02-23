@@ -35,7 +35,9 @@ def ueditor():
 
 @route_upload.route('/pic',methods=['GET','POST'])
 def uploadPic():
+    # 获取请求文件的表单
     file_target = request.files
+    # 获取上传的文件
     upfile = file_target['pic'] if 'pic' in file_target else None
 
     # 调用iframe的父类js方法
