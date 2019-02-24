@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c08ee1d9-540b-42ed-93cc-96d46fd7d7aa" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/js/food/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/controllers/api/Food.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/libs/Helper.py" afterPath="$PROJECT_DIR$/common/libs/Helper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/models/food/FoodCat.py" afterPath="$PROJECT_DIR$/common/models/food/FoodCat.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/account/Account.py" afterPath="$PROJECT_DIR$/web/controllers/account/Account.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/api/__init__.py" afterPath="$PROJECT_DIR$/web/controllers/api/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/food/Food.py" afterPath="$PROJECT_DIR$/web/controllers/food/Food.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/member/Member.py" afterPath="$PROJECT_DIR$/web/controllers/member/Member.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/js/common.js" afterPath="$PROJECT_DIR$/web/static/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/account/index.html" afterPath="$PROJECT_DIR$/web/templates/account/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/common/layout_main.html" afterPath="$PROJECT_DIR$/web/templates/common/layout_main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/common/pagenation.html" afterPath="$PROJECT_DIR$/web/templates/common/pagenation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/food/cat.html" afterPath="$PROJECT_DIR$/web/templates/food/cat.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/food/index.html" afterPath="$PROJECT_DIR$/web/templates/food/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/food/info.html" afterPath="$PROJECT_DIR$/web/templates/food/info.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,47 +23,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Food.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/controllers/food/Food.py">
+        <entry file="file://$PROJECT_DIR$/web/controllers/api/Food.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="293" column="0" lean-forward="true" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+            <state relative-caret-position="586">
+              <caret line="91" column="0" lean-forward="true" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
               <folding>
-                <element signature="e#24#52#0" expanded="true" />
-                <element signature="e#555#1901#0" expanded="false" />
-                <element signature="e#6295#7583#0" expanded="false" />
-                <element signature="e#7643#8551#0" expanded="false" />
-                <marker date="1550986815636" expanded="false" signature="2672:5609" ph="..." />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cat.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/static/js/food/cat.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="25" column="51" lean-forward="false" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cat.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/templates/food/cat.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="68" column="63" lean-forward="true" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/templates/food/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="80" column="24" lean-forward="true" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -84,8 +40,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -106,7 +62,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/templates/common/tab_user.html" />
         <option value="$PROJECT_DIR$/web/controllers/user/User.py" />
         <option value="$PROJECT_DIR$/common/libs/user/UserService.py" />
         <option value="$PROJECT_DIR$/web/static/js/account/set.js" />
@@ -117,7 +72,6 @@
         <option value="$PROJECT_DIR$/web/templates/account/info.html" />
         <option value="$PROJECT_DIR$/mina/pages/index/index.js" />
         <option value="$PROJECT_DIR$/mina/pages/index/index.wxml" />
-        <option value="$PROJECT_DIR$/web/controllers/api/__init__.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/common/models/member/OauthMemberBind.py" />
         <option value="$PROJECT_DIR$/common/libs/member/MemberService.py" />
@@ -157,6 +111,8 @@
         <option value="$PROJECT_DIR$/web/templates/food/cat.html" />
         <option value="$PROJECT_DIR$/web/static/js/food/cat.js" />
         <option value="$PROJECT_DIR$/web/controllers/food/Food.py" />
+        <option value="$PROJECT_DIR$/web/controllers/api/__init__.py" />
+        <option value="$PROJECT_DIR$/web/controllers/api/Food.py" />
       </list>
     </option>
   </component>
@@ -232,7 +188,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -250,7 +206,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -272,83 +228,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="food" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="order" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -615,7 +499,7 @@
     <frame x="64" y="-11" width="1853" height="940" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14759536" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14759536" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -678,25 +562,11 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="7" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/templates/member/set.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="30" column="60" lean-forward="false" selection-start-line="30" selection-start-column="60" selection-end-line="30" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/member/info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -794,25 +664,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="29" column="50" lean-forward="true" selection-start-line="29" selection-start-column="50" selection-end-line="29" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/static/plugins/ueditor/third-party/jquery-1.10.2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="6136" column="4" lean-forward="false" selection-start-line="6136" selection-start-column="4" selection-end-line="6136" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/libs/UrlManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -825,17 +680,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/controllers/api/Member.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="39" column="24" lean-forward="true" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/libs/member/MemberService.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="8" column="32" lean-forward="false" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -936,25 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/food/set.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="57" column="74" lean-forward="true" selection-start-line="57" selection-start-column="74" selection-end-line="57" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/static/js/food/set.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="51" lean-forward="false" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
-          <folding>
-            <element signature="e#805#4238#0" expanded="false" />
-            <element signature="e#4268#5611#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/common/layout_main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -1010,7 +840,7 @@
         <state relative-caret-position="40">
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
-            <element signature="e#16#72#0" expanded="true" />
+            <element signature="e#16#72#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1028,7 +858,7 @@
         <state relative-caret-position="-672">
           <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
           <folding>
-            <element signature="n#style#0;n#img#0;n#p#4;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#4;n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1057,16 +887,81 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/food/set.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="88" column="36" lean-forward="false" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/static/js/food/set.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1655">
+          <caret line="9" column="51" lean-forward="false" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
+          <folding>
+            <element signature="e#4268#5611#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controllers/api/Member.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="e#16#57#0" expanded="true" />
+            <element signature="e#2410#3376#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/libs/UrlManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="37" column="51" lean-forward="true" selection-start-line="37" selection-start-column="51" selection-end-line="37" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controllers/api/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="42" lean-forward="true" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/food/Food.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="293" column="0" lean-forward="true" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="e#24#52#0" expanded="true" />
-            <element signature="e#555#1901#0" expanded="false" />
-            <element signature="e#6295#7583#0" expanded="false" />
-            <element signature="e#7643#8551#0" expanded="false" />
-            <marker date="1550986815636" expanded="false" signature="2672:5609" ph="..." />
+            <element signature="e#1948#2600#0" expanded="false" />
+            <element signature="e#5659#6207#0" expanded="false" />
+            <element signature="e#6290#7578#0" expanded="false" />
+            <element signature="e#7638#8546#0" expanded="false" />
+            <element signature="e#8613#9505#0" expanded="false" />
+            <marker date="1550987586374" expanded="false" signature="2672:5604" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controllers/api/Food.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="91" column="0" lean-forward="true" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

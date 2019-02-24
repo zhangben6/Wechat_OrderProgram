@@ -92,7 +92,7 @@ def set():
 
     resp = {'code':200,'msg':'操作成功','data':{}}
     req = request.values
-    id = int(req['id']) if 'id' in req else 0
+    id = req['id'] if 'id' in req else 0
     cat_id = int(req['cat_id']) if 'cat_id' in req else 0
     name = req['name'] if 'name' in req else ''
     price = req['price'] if 'price' in req else ''
