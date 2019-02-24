@@ -72,9 +72,8 @@
                     {% else %}
                         <a class="m-l recover" href="javascript:void(0);" data="{{item.uid}}">
                         <i class="fa fa-rotate-left fa-lg"></i>
-                    </a>
+                        </a>
                     {% endif %}
-
                 </td>
             </tr>
                 {% endfor %}
@@ -92,6 +91,7 @@
     </div>
 </div>
 {% endblock %}
+
 {% block js %}
 <script src="{{buildStaticUrl("/js/account/index.js")}}"></script>
 {% endblock %}

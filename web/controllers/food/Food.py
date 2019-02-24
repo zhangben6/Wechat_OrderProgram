@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from _decimal import Decimal
-
+from sqlalchemy import or_
 from flask import Blueprint, request, jsonify, redirect
-from common.libs.Helper import ops_render,getCurrentDate
+from common.libs.Helper import ops_render,getCurrentDate,iPagination,getDictFilterField
 from common.models.food.FoodCat import FoodCat
 from common.models.food.Food import Food
 from common.models.food.FoodStockChangeLog import FoodStockChangeLog
@@ -14,13 +14,66 @@ route_food = Blueprint( 'food_page',__name__ )
 
 @route_food.route( "/index" )
 def index():
-    return ops_render( "food/index.html" )
+    resp_data = {}
+    req = request.values
+    page = int(req['p']) if ('p' in req and req['p']) else 1
+    query = Food.query
+    if 'mix_kw' in req:
+        rule = or_(Food.name.ilike("%{0}%".format(req['mix_kw'])),Food.tags.ilike("{0}".format(req['mix_kw'])))
+        query = query.filter(rule)
+    if 'status' in req and int(req['status']) > -1:
+        query = query.filter(Food.status == int(req['status']))
+
+    if 'cat_id' in req and int(req['cat_id']) > 0:
+        query = query.filter(Food.cat_id == req['cat_id'])
+
+    page_params = {
+        'total':query.count(),
+        'page_size':app.config['PAGE_SIZE'],
+        'page':page,
+        'display':app.config['PAGE_DISPLAY'],
+        'url':request.full_path.replace("&p={}".format(page),"")
+    }
+    pages = iPagination(page_params)
+    offset = (page-1) * app.config['PAGE_SIZE']
+    list = query.order_by(Food.id.desc()).offset(offset).limit(app.config['PAGE_SIZE']).all()
+
+
+    cat_mapping = getDictFilterField(FoodCat,'id','id',[])
+    # 统一传到index首页
+    resp_data['list'] = list
+    # 定义的分页类
+    resp_data['pages'] = pages
+    resp_data['search_con'] = req
+    resp_data['status_mapping'] = app.config['STATUS_MAPPING']
+    resp_data['cat_mapping'] = cat_mapping
+    resp_data['curren'] = 'index'
+    app.logger.info(cat_mapping)
+    return ops_render( "food/index.html",resp_data)
 
 @route_food.route( "/info" )
 def info():
-    return ops_render( "food/info.html" )
+    resp_data = {}
+    req = request.values
+    id = int(req.get('id',0))
+    reback_url = UrlManager.buildUrl("/food/index")
+    if id < 1:
+        return redirect(reback_url)
+    info = Food.query.filter_by(id=id).first()
+    if not info:
+        return redirect(reback_url)
 
+    # 查询库存变更记录
+    stock_change_list = FoodStockChangeLog.query.filter(FoodStockChangeLog.food_id == id)\
+        .order_by(FoodStockChangeLog.id.desc()).all()
 
+    app.logger.info('爱的就是你',stock_change_list)
+    resp_data['info'] = info
+    resp_data['stock_change_list'] = stock_change_list
+    resp_data['current'] = 'index'
+    return ops_render( "food/info.html",resp_data )
+
+# 修改和添加菜品
 @route_food.route( "/set",methods=['GET','POST'])
 def set():
     if request.method == 'GET':
@@ -113,10 +166,7 @@ def set():
     db.session.commit()
     return jsonify(resp)
 
-
-
-
-
+ # 分类列表页面
 @route_food.route( "/cat" )
 def cat():
     # 分页功能的实现
@@ -136,6 +186,7 @@ def cat():
     app.logger.info(resp_data)
     return ops_render( "food/cat.html",resp_data)
 
+# 添加菜品分类
 @route_food.route( "/cat-set",methods=['GET','POST'])
 def catSet():
     if request.method == 'GET':
@@ -177,6 +228,46 @@ def catSet():
     db.session.commit()
     return jsonify(resp)
 
+@route_food.route('/ops',methods=['POST'])
+def ops():
+    # 定义json数据格式用于交互
+    resp = {'code':200,'msg':'操作成功!','data':{}}
+    req = request.values
+
+    id = req['id'] if 'id' in req else ''
+    act = req['act'] if 'act' in req else ''
+    if not id :
+        resp['code'] = -1
+        resp['msg'] = '请选择要操作的帐号'
+        return jsonify(resp)
+
+    if act not in ['remove','recover']:
+        resp['code'] = -1
+        resp['msg'] = '操作有误,请重试'
+        return jsonify(resp)
+
+    food_info = Food.query.filter_by(id=id).first()
+    if not food_info:
+        resp['code'] = -1
+        resp['msg'] = '指定菜品不存在'
+        return jsonify(resp)
+
+    # 接下来是查到有用户数据的判断
+    if act == 'remove':
+        food_info.status = 0
+    elif act == 'recover':
+        food_info.status = 1
+
+    app.logger.info('爱的就是你',food_info.status)
+
+    # 保存进数据库
+    # 更新用户的'更新'字段
+    food_info.update_time = getCurrentDate()
+
+    db.session.add(food_info)
+    db.session.commit()
+    return jsonify(resp)
+
 @route_food.route('/cat-ops',methods=['POST'])
 def catOps():
     # 定义json数据格式用于交互
@@ -198,7 +289,7 @@ def catOps():
     food_cat_info = FoodCat.query.filter_by(id=id).first()
     if not food_cat_info:
         resp['code'] = -1
-        resp['msg'] = '指定帐号不存在'
+        resp['msg'] = '指定菜品不存在'
         return jsonify(resp)
 
     # 接下来是查到有用户数据的判断
@@ -207,15 +298,14 @@ def catOps():
     elif act == 'recover':
         food_cat_info.status = 1
 
-    app.logger.info(food_cat_info)
-
     # 保存进数据库
     # 更新用户的'更新'字段
-    food_cat_info.update_time = getCurrentDate()
+        food_cat_info.update_time = getCurrentDate()
 
     db.session.add(food_cat_info)
     db.session.commit()
     return jsonify(resp)
+
 
 
 

@@ -57,11 +57,10 @@
                 <td>{{item.status_desc}} </td>
                 <td>{{item.weight}}</td>
                 <td>
-                    {% if item.status == 1 %}
                     <a class="m-l" href="{{ buildUrl('/food/cat-set') }}?id={{item.id}}">
                         <i class="fa fa-edit fa-lg"></i>
                     </a>
-
+                    {% if item.status == 1 %}
                     <a class="m-l remove" href="javascript:void(0);" data="{{item.id}}">
                         <i class="fa fa-trash fa-lg"></i>
                     </a>

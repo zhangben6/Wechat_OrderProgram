@@ -67,7 +67,6 @@ def info():
     if id < 1:
         return redirect(reback_url)
     info = Member.query.filter_by(id = id).first()
-    app.logger.info(info)
 
     if not info:
         return redirect(reback_url)
