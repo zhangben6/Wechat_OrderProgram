@@ -6,6 +6,9 @@ from common.libs.member.CartService import CartService
 from common.libs.Helper import selectFilterObj,getDictFilterField
 from common.libs.UrlManager import UrlManager
 from application import app
+import json
+
+
 
 @route_api.route('/cart/index')
 def cartIndex():
@@ -24,7 +27,7 @@ def cartIndex():
         # 把字段的值作为字典中的键,值作为这个对象  返回给前端
         # {1: <FoodCat 1>, 2: <FoodCat 2>}
         food_map = getDictFilterField(Food,Food.id,'id',food_ids)
-        
+
         for item in cart_list:
             tmp_food_info = food_map[item.food_id]
             tmp_data = {
@@ -34,7 +37,7 @@ def cartIndex():
                 'name':tmp_food_info.name,
                 'price':str(tmp_food_info.price),
                 'pic_url':UrlManager.buildImageUrl(tmp_food_info.main_image),
-                'actice':True
+                'active':True
             }
             data_cart_list.append(tmp_data)
     resp['data']['list'] = data_cart_list
@@ -50,6 +53,7 @@ def setCart():
 
     food_id = int(req['id']) if 'id' in req else 0
     number = int(req['number']) if 'number' in req else 0
+
     if food_id < 1 or number < 1:
         resp['code'] = -1
         resp['msg'] = '添加购物车失败 -1'
@@ -79,7 +83,34 @@ def setCart():
 
     return jsonify(resp)
 
+@route_api.route('/cart/del',methods=['POST'])
+def delCart():
+    resp = {'code': 200, 'msg': '操作成功', 'data': {}}
+    req = request.values
+    params_goods = req['goods'] if 'goods' in req else None
+
+    items = []
+    if params_goods:
+        # 解析
+        items = json.loads(params_goods)
+
+    if not items or len(items) < 1:
+        return jsonify(resp)
+
+    member_info = g.member_info
+    if not member_info:
+        resp['code'] = -1
+        resp['msg'] = '删除购物车失败-1'
+        return jsonify(resp)
+
+    ret = CartService.deleteItem(member_id=member_info.id,items=items)
+    if not ret:
+        resp['code'] = -1
+        resp['msg'] = '删除购物车失败-1'
+        return jsonify(resp)
 
 
+
+    return jsonify(resp)
 
 

@@ -7,6 +7,7 @@ from common.models.food.FoodCat import FoodCat
 from common.models.food.Food import Food
 from common.models.food.FoodStockChangeLog import FoodStockChangeLog
 from common.libs.UrlManager import UrlManager
+from common.libs.food.FoodService import FoodService
 from application import app,db
 
 
@@ -153,17 +154,8 @@ def set():
     db.session.add(model_food)
     db.session.commit()
 
-    # 要关联到库存表的操作
-    model_stock_change = FoodStockChangeLog()
-    model_stock_change.food_id = model_food.id
-    # 库存变更记录
-    model_stock_change.unit = int(stock) - int(before_stock)
-    # 现有库存量
-    model_stock_change.total_stock = stock
-    model_stock_change.note = ''
-    model_stock_change.created_time = getCurrentDate()
-    db.session.add(model_stock_change)
-    db.session.commit()
+    FoodService.setStockChangeLog(model_food.id,int(stock)-int(before_stock),'后台修改')
+
     return jsonify(resp)
 
  # 分类列表页面
