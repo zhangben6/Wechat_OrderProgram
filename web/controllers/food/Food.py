@@ -38,8 +38,8 @@ def index():
     offset = (page-1) * app.config['PAGE_SIZE']
     list = query.order_by(Food.id.desc()).offset(offset).limit(app.config['PAGE_SIZE']).all()
 
-
     cat_mapping = getDictFilterField(FoodCat,'id','id',[])
+    app.logger.info('爱的就是你',cat_mapping)
     # 统一传到index首页
     resp_data['list'] = list
     # 定义的分页类
