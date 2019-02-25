@@ -89,6 +89,32 @@ def foodSearch():
 
     return jsonify(resp)
 
+@route_api.route('/food/info')
+def foodInfo():
+    resp = {'code':200,'msg':'操作成功','data':{}}
+    req = request.values
+    id = int(req['id']) if 'id' in req else 0
+    food_info = Food.query.filter_by(id=id).first()
+    if not food_info or not food_info.status:
+        resp['code'] = -1
+        resp['msg'] = '美食已下架'
+        return jsonify(resp)
+
+    resp['data']['info'] = {
+        'id':food_info.id,
+        'name':food_info.name,
+        'summary':food_info.summary,
+        'total_count':food_info.total_count,
+        'comment_count':food_info.comment_count,
+        'main_image':UrlManager.buildImageUrl(food_info.main_image),
+        'price':str(food_info.price),
+        'stock':food_info.stock,
+        'pics':[ UrlManager.buildImageUrl(food_info.main_image) ]
+    }
+
+    return jsonify(resp)
+
+
 
 
 

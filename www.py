@@ -8,7 +8,7 @@ BluePrint相关存放位置
 统一拦截器
 '''
 from web.interceptor.AuthInterceptor import *
-
+from web.interceptor.apiAuthInterceptor import *
 
 '''
 蓝图功能,对所有的url进行蓝图功能配置

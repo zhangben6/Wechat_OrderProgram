@@ -87,14 +87,21 @@ Page({
         });
 
         //加载页面就要获取banner的值和cat分类
-        this.getBannerAndCat();
+        // this.getBannerAndCat();
     },
+
+    //页面只要显示,就要请求后台,确保是最新的数据
+    onShow:function(){
+      this.getBannerAndCat();
+    },
+
     scroll: function (e) {
         var that = this, scrollTop = that.data.scrollTop;
         that.setData({
             scrollTop: e.detail.scrollTop
         });
     },
+
     //事件处理函数
     swiperchange: function (e) {
         this.setData({
@@ -179,7 +186,7 @@ Page({
         return;
       }
       
-      if(!that.data.loadingHidden){
+      if(!that.data.loadingMoreHidden){
           return;
       }
 

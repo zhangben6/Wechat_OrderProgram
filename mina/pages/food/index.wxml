@@ -37,7 +37,7 @@
   </view>
 
   <view class="goods-container">
-    <view class="goods-box" wx:for-items="{{goods}}"  bindtap="toDetailsTap">
+    <view class="goods-box" wx:for-items="{{goods}}"  bindtap="toDetailsTap" data-id="{{item.id}}">
       <view class="img-box">
         <image src="{{item.pic_url}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>

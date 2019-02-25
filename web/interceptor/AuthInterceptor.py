@@ -22,6 +22,11 @@ def before_request():
     if pattern.match(path):
         return
 
+    # 如果是api请求,直接过滤掉
+    if '/api' in path:
+        return
+
+
     user_info = check_login()
 
     # flask中的g方法可以获取用户的状态,传入'/'的视图处理函数
