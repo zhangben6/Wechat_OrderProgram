@@ -2,11 +2,14 @@ from web.controllers.api import route_api
 from flask import request,jsonify,g
 from common.models.food.Food import Food
 from common.models.member.MemberCart import MemberCart
+from common.models.pay.PayOrder import PayOrder
+from common.models.member.OauthMemberBind import OauthMemberBind
 from common.libs.member.CartService import CartService
 from common.libs.Helper import selectFilterObj,getDictFilterField
 from common.libs.pay.PayService import PayService
 from common.libs.UrlManager import UrlManager
-from application import app
+from application import app,db
+from common.libs.pay.WeChatService import WeChatService
 import json,decimal
 
 
@@ -87,4 +90,77 @@ def orderCreate():
         # 删除购物车中的对象
         CartService.deleteItem(member_info.id,items)
     return jsonify(resp)
+
+
+@route_api.route('/order/pay',methods=['POST'])
+def orderPay():
+    resp = {'code': 200, 'msg': '操作成功', 'data': {}}
+    member_info = g.member_info
+    req = request.values
+    order_sn = req['order_sn'] if 'order_sn' in req else ''
+
+    pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
+    if not pay_order_info:
+        resp['code'] = -1
+        resp['msg'] = '系统繁忙,稍后再试-1'
+        return jsonify(resp)
+
+    oauth_bind_info = OauthMemberBind.query.filter_by(member_id=member_info.id).first()
+    if not oauth_bind_info:
+        resp['code'] = -1
+        resp['msg'] = '系统繁忙,稍后再试-2'
+        return jsonify(resp)
+
+    config_mina = app.config['MINA_APP']
+    # 设置回调函数
+    notify_url = app.config['APP']['domain'] + config_mina['callback_url']
+
+    target_wechat = WeChatService(merchant_key=config_mina['paykey'])
+    data = {
+        'appid':config_mina['appid'],
+        'mch_id':config_mina['mch_id'],
+        'nonce_str':target_wechat.get_nonce_str(),
+        'body':'订餐 ',
+        'out_trade_no':'pay_order_info.order_sn',
+        'total_fee':int( pay_order_info.total_price * 100 ),
+        'notify_url':notify_url,
+        'trade_type':'JSAPI',
+        'openid':oauth_bind_info.openid
+    }
+
+    pay_info = target_wechat.get_pay_info(data)
+
+    # 保存prepay_id为了后面发模板消息
+    pay_order_info.prepay_id = pay_info['prepay_id']
+    db.session.add(pay_order_info)
+    db.session.commit()
+    resp['data']['pay_info'] = pay_info
+
+
+    ######################
+
+    return jsonify(resp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

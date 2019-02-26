@@ -1,3 +1,6 @@
+'''
+订单页面的接口处理函数
+'''
 from web.controllers.api import route_api
 from flask import request,jsonify,g
 from common.models.food.Food import Food
@@ -77,6 +80,7 @@ def myOrderList():
                 'status_desc':item.status_desc,
                 'date':item.created_time.strftime("%Y-%m-%d %H:%M:%S"),
                 'order_number':item.order_number,
+                'order_sn': item.order_sn,
                 'note':item.note,
                 'total_price':str(item.total_price),
                 'goods_list':pay_order_item_map[item.id]

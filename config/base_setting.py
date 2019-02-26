@@ -35,7 +35,10 @@ STATUS_MAPPING = {
 
 MINA_APP = {
     'appid':'wx4d2ba3758c4fa9db',
-    'appkey':'e6520fedd29877ea889d128af628038f'
+    'appkey':'e6520fedd29877ea889d128af628038f',
+    'paykey':'ADFDSAF2DF',
+    'mch_id':'19216822',
+    'callback_url':'/api/order/callback'
 }
 
 # 用户上传图片用到的一些设置
