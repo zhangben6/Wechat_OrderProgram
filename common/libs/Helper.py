@@ -95,7 +95,7 @@ def getDictFilterField(db_model,select_field,key_field,id_list):
 
     return ret
 
-# 从一个对象中取出我们想要的字段数据
+# 从一个对象中取出我们想要的字段数据,obj可以是一个列表
 def selectFilterObj(obj,field):
     ret = []
     for item in obj:
