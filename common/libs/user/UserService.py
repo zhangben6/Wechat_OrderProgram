@@ -3,6 +3,8 @@ import random,string
 
 
 class UserService():
+
+    # 加密cookie
     @staticmethod
     def geneAuthCode(user_info):
         m = hashlib.md5()
@@ -10,6 +12,7 @@ class UserService():
         m.update(str.encode('utf-8'))
         return m.hexdigest()
 
+    # 根据pwd 和 salt 的值进行结合加密,存进数据库保存成用户密码
     @staticmethod
     def genePwd(pwd,salt):
         m = hashlib.md5()

@@ -139,6 +139,8 @@ var common_ops = {
             scrollTop: target.offset().top - 10
         }, 100);
     },
+
+    // url链接管理器
     buildUrl:function(path,params){
         var url = '' + path;
         var _paramUrl = '';
@@ -150,6 +152,8 @@ var common_ops = {
         }
         return url + _paramUrl;
     },
+
+
     buildPicUrl:function (img_key) {
         var domain = $(".hidden_layout_wrap input[name=domain]").val();
         var prefix_url = $(".hidden_layout_wrap input[name=prefix_url]").val();

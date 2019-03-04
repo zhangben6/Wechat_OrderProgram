@@ -4,7 +4,7 @@
 DEBUG = True
 
 # 将所有的SQL语句打印出来
-SQLALCHEMY_ECHO = True
+SQLALCHEMY_ECHO = False
 
 # SQLAlchemy 连接mysql数据库
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@127.0.0.1/food_db'

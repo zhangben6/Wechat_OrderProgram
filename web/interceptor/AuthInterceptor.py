@@ -12,7 +12,6 @@ import re
 
 @app.before_request
 def before_request():
-
     ignore_urls = app.config['IGNORE_URLS']
     ignore_check_login_urls = app.config['IGNORE_CHECK_LOGIN_URLS']
     # 获取页面的url地址
@@ -52,7 +51,6 @@ def before_request():
 def check_login():
     cookies = request.cookies
     auth_cookie = cookies[app.config['AUTH_COOKIE_NAME']] if app.config['AUTH_COOKIE_NAME'] in cookies else None
-    # app.logger.info(auth_cookie)
     if auth_cookie is None:
         return False
     auth_info = auth_cookie.split('#')

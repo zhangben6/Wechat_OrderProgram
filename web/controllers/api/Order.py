@@ -13,14 +13,19 @@ from common.libs.pay.WeChatService import WeChatService
 import json,decimal
 
 
-
+# 获取订单的信息
 @route_api.route('/order/info',methods=['POST'])
 def orderInfo():
+    member_info = g.member_info
     resp = {'code':200,'msg':'操作成功','data':{}}
     req = request.values
+
+    # 此时params_goods数据还是JSON格式,需要json.loads方法加息
     params_goods = req['goods'] if 'goods' in req else None
-    member_info = g.member_info
+
+    # 添加json解析出来的数据,定义一个新的列表用来存储
     params_goods_list = []
+
     # 解析json数据放到列表中
     if params_goods:
         params_goods_list = json.loads(params_goods)
@@ -29,13 +34,19 @@ def orderInfo():
     food_dic = {}
     for item in params_goods_list:
         food_dic[item['id']] = item['number']
+
+    #　求出商品对应的ids
     food_ids = food_dic.keys()
-    food_list = Food.query.filter(Food.id.in_(food_ids))
+
+    # 求出商品对象
+    food_list = Food.query.filter(Food.id.in_(food_ids)).all()
 
     # 用于返回的列表对象
     data_food_list = []
+
     # 定义运费
     yun_price = pay_price = decimal.Decimal(0.00)
+
     if food_list:
         for item in food_list:
             tmp_data = {
@@ -45,8 +56,10 @@ def orderInfo():
                 'pic_url': UrlManager.buildImageUrl(item.main_image),
                 'number':food_dic[item.id]
             }
-            pay_price  = pay_price + item.price * int(food_dic[item.id])
+            pay_price = pay_price + item.price * int(food_dic[item.id])
             data_food_list.append(tmp_data)
+
+    # 定义默认的收获地址,根据前台的数据
     default_address = {
         'name': "编程浪子",
         'mobile': "12345678901",
@@ -62,8 +75,10 @@ def orderInfo():
 
     return jsonify(resp)
 
+# 创建订单操作
 @route_api.route('/order/create',methods=['POST'])
 def orderCreate():
+    member_info  = g.member_info
     resp = {'code': 200, 'msg': '操作成功', 'data': {}}
     req = request.values
 
@@ -73,13 +88,13 @@ def orderCreate():
     items = []
     if params_goods:
         items = json.loads(params_goods)
+        
     if len(items)<1:
         resp['code'] = -1
         resp['msg'] = '下单失败:没有选择商品'
         return jsonify(resp)
 
     # 创建一个对象
-    member_info  = g.member_info
     target = PayService()
     # params里面可以填充前台获得的数据,用于存粗到数据可
     params = {}
@@ -91,7 +106,7 @@ def orderCreate():
         CartService.deleteItem(member_info.id,items)
     return jsonify(resp)
 
-
+# 订单支付
 @route_api.route('/order/pay',methods=['POST'])
 def orderPay():
     resp = {'code': 200, 'msg': '操作成功', 'data': {}}
@@ -141,8 +156,52 @@ def orderPay():
 
     return jsonify(resp)
 
+# 支付回调数据处理
+@route_api.route('/order/callback',methods=['POST'])
+def callBack():
 
+    # 返回给微信使用
+    result_data = {
+        'return_code':'SUCCESS',
+        'return_msg':'OK'
+    }
 
+    header = {'content-Type':'application/xml'}
+    config_mina = app.config['MINA_APP']
+    target_wechat = WeChatService(merchant_key=config_mina['paykey'])
+    callback_data = target_wechat.xml_to_dict(request.data)
+    app.logger.info(callback_data)
+
+    # 取出sign值,再生成一次sign值,做比较,防止伪造
+    sign = callback_data['sign']
+    callback_data.pop('sign')
+    gene_sign = target_wechat.create_sign(callback_data)
+    app.logger.info(gene_sign)
+    if sign != gene_sign:
+        result_data['return_code'] = result_data['return_msg'] = 'FAIL'
+        return target_wechat.dict_to_xml(result_data),header
+
+    # 对比金钱的数量是否正确
+    order_sn = callback_data['out_trade_no']
+    pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
+    if not pay_order_info:
+        result_data['return_code'] = result_data['return_msg'] = 'FAIL'
+        return target_wechat.dict_to_xml(result_data), header
+
+    if int(pay_order_info.total_price * 100) != int(callback_data['total_fee']):
+        result_data['return_code'] = result_data['return_msg'] = 'FAIL'
+        return target_wechat.dict_to_xml(result_data), header
+
+    if pay_order_info.status == 1:
+        return target_wechat.dict_to_xml(result_data), header
+
+    # 下单成功
+    target_pay = PayService()
+    target_pay.orderSuccess(pay_order_id=pay_order_info.id,params={'pay_sn':callback_data['transaction_id']})
+
+    # 将微信回调的信息存表
+
+    return target_wechat.dict_to_xml(result_data),header
 
 
 

@@ -11,6 +11,7 @@ from common.libs.Helper import getCurrentDate
 from common.libs.member.MemberService import MemberService
 from common.models.food.WxShareHistory import WxShareHistory
 
+
 @route_api.route('/member/login',methods=['GET','POST'])
 def login():
     resp = {'code':200,'msg':'操作成功','data':{}}
@@ -110,6 +111,7 @@ def checkReg():
     token = '%s#%s'%(MemberService.geneAuthCode(member_info),member_info.id)
     resp['data'] = {'token':token}
     return jsonify(resp)
+
 
 @route_api.route('/member/share',methods=['POST'])
 def memberShare():

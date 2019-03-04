@@ -7,7 +7,7 @@ from common.libs.Helper import getCurrentDate
 class CartService():
 
     @staticmethod
-    # 删除购物车
+    # 删除购物车中用户选中的商品
     def deleteItem(member_id=0,items=None):
         if member_id < 1 or not items:
             return False

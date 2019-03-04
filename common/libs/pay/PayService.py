@@ -136,3 +136,37 @@ class PayService():
             if not PayOrder.query.filter_by(order_sn=sn).first():
                 break
         return sn
+
+
+    # 下单成功后的操作
+    def orderSuccess(self,pay_order_id=0,params=None):
+        try:
+            pay_order_info = PayOrder.query.filter_by(id=pay_order_id).first()
+            if not pay_order_info or pay_order_info.status not in [-8.-7]:
+                return True
+            # 第三方号流水信息
+            pay_order_info.pay_sn = params['pay_sn'] if params and 'pay_sn' in params else ''
+            pay_order_info.status = 1
+            pay_order_info.express_status = -7
+            pay_order_info.updated_time = getCurrentDate()
+            db.session.add(pay_order_info)
+            db.session.commit()
+
+        except Exception as e:
+            db.session.rollback()
+            return False
+
+
+    def addPayCallbackData(self,pay_order_id=0,type='pay',data=''):
+        model_callback = PayOrderCallbackDatum()
+        model_callback.pay_order_id = pay_order_id
+        if type == 'pay':
+            model_callback.pay_data = data
+            model_callback.refund_data = ''
+        else:
+            model_callback.refund_data = data
+            model_callback.pay_data = ''
+        model_callback.created_time = model_callback.updated_time = getCurrentDate()
+        db.session.add(model_callback)
+        db.session.commit()
+        return True

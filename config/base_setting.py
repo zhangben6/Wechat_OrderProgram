@@ -9,7 +9,7 @@ DEBUG = False
 # 默认不打印输出
 SQLALCHEMY_ECHO = False
 
-AUTH_COOKIE_NAME = 'mooc_food'
+AUTH_COOKIE_NAME = 'rapzhangFood'
 
 # 过滤url
 IGNORE_URLS = [

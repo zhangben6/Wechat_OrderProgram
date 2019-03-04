@@ -47,7 +47,6 @@ def foodIndex():
     resp['data']['banner_list'] = data_food_list
     return jsonify(resp)
 
-
 # 返回菜品的详细信息
 @route_api.route('/food/search')
 def foodSearch():
