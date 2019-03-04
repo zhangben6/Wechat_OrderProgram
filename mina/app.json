@@ -1,11 +1,11 @@
 {
   "pages": [
-      "pages/cart/index",
+    "pages/cart/index",
     "pages/index/index",
     "pages/food/index",
     "pages/food/info",
+    
     "pages/order/index",
-  
     "pages/my/order_list",
     "pages/my/order_info",
     "pages/my/addressList",

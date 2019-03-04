@@ -71,17 +71,21 @@ Page({
     this.getInfo();
   },
 
+  //通往购物车页面
   goShopCar: function() {
     wx.reLaunch({
       url: "/pages/cart/index"
     });
   },
+
+
   toAddShopCar: function() {
     this.setData({
       shopType: "addShopCar"
     });
     this.bindGuiGeTap();
   },
+
   tobuy: function() {
     this.setData({
       shopType: "tobuy"
@@ -113,7 +117,7 @@ Page({
       });
   },
 
-// 立即购买   传递参数的操作
+  // 立即购买   传递参数的操作
   buyNow: function() {
     var data = {
       goods:[{
@@ -149,6 +153,8 @@ Page({
       hideShopPopup: true
     })
   },
+
+
   numJianTap: function() {
     if (this.data.buyNumber <= this.data.buyNumMin) {
       return;

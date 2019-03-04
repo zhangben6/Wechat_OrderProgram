@@ -10,6 +10,7 @@ Page({
   onShow: function() {
     this.getCartList();
   },
+
   //每项前面的选中框
   selectTap: function(e) {
     var index = e.currentTarget.dataset.index;
@@ -19,6 +20,7 @@ Page({
       this.setPageData(this.getSaveHide(), this.totalPrice(), this.allSelect(), this.noSelect(), list);
     }
   },
+
   //计算是否全选了
   allSelect: function() {
     var list = this.data.list;
@@ -34,6 +36,7 @@ Page({
     }
     return allSelect;
   },
+
   //计算是否都没有选
   noSelect: function() {
     var list = this.data.list;
@@ -50,6 +53,8 @@ Page({
       return false;
     }
   },
+
+
   //全选和全部选按钮
   bindAllSelect: function() {
     var currentAllSelect = this.data.allSelect;
@@ -59,6 +64,7 @@ Page({
     }
     this.setPageData(this.getSaveHide(), this.totalPrice(), !currentAllSelect, this.noSelect(), list);
   },
+
   //加数量
   jiaBtnTap: function(e) {
     var that = this;
@@ -68,6 +74,7 @@ Page({
     that.setPageData(that.getSaveHide(), that.totalPrice(), that.allSelect(), that.noSelect(), list);
     this.setCart(list[parseInt(index)].food_id, list[parseInt(index)].number   )
   },
+
   //减数量
   jianBtnTap: function(e) {
     var index = e.currentTarget.dataset.index;
@@ -78,6 +85,7 @@ Page({
       this.setCart(list[parseInt(index)].food_id, list[parseInt(index)].number)
     }
   },
+
   //编辑默认全不选
   editTap: function() {
     var list = this.data.list;
@@ -97,9 +105,13 @@ Page({
     }
     this.setPageData(!this.getSaveHide(), this.totalPrice(), this.allSelect(), this.noSelect(), list);
   },
+
+
   getSaveHide: function() {
     return this.data.saveHidden;
   },
+
+
   totalPrice: function() {
     var list = this.data.list;
     var totalPrice = 0.00;
@@ -111,6 +123,7 @@ Page({
     }
     return totalPrice;
   },
+
   setPageData: function(saveHidden, total, allSelect, noSelect, list) {
     this.setData({
       list: list,
@@ -122,31 +135,31 @@ Page({
   },
 
 
-
-  //去结算
+  //去结算,下单功能需要传递商品参数
   toPayOrder: function() {
     var data = {
       type:"cart",
       goods:[]
     };
     var list = this.data.list;
-    console.log(list)
     for(var i=0;i<list.length;i++){
+
+      // 如果当前菜品没有被选中,跳过不处理
       if(!list[i].active){
         continue;
       }
+      
       data['goods'].push({
         'id':list[i].food_id,
         'price':list[i].price,
         'number': list[i].number,
       });
     }
-    // 传递数据
+    //传递数据
     wx.navigateTo({
       url: "/pages/order/index?data=" + JSON.stringify(data)
     });
   },
-
 
   //如果没有显示去光光按钮事件
   toIndexPage: function() {
@@ -154,7 +167,6 @@ Page({
       url: "/pages/food/index"
     });
   },
-
 
   //选中删除的数据
   deleteSelected: function() {
@@ -231,6 +243,7 @@ Page({
           list: resp.data.list,
           saveHidden: true,
           totalPrice: 0.00,
+          // 是否全选中
           allSelect: true,
           noSelect: false,
         });
@@ -255,7 +268,7 @@ Page({
       method: 'POST',
       data: data,
       success: function (res) {
-        
+        // 不返回提示,前台效果不好
       }
     });
   }

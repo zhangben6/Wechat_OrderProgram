@@ -7,13 +7,17 @@ Page({
         default_address: null,
         yun_price: "1.00",
         pay_price: "0.00",
-        total_price: "0.00",
-        params: null
+        total_price: "0.00", 
+        params: null // 这个参数专门用来接收上级页面传递的参数信息,然后再发送网络请求使用
     },
+
+
     onShow: function () {
         var that = this;
         that.getOrderInfo(); 
     },
+
+
     onLoad: function (e) {
         var that = this;
         that.setData({
@@ -35,6 +39,7 @@ Page({
           method: 'POST',
           data: data,
           success: function (res) {
+            wx.hideLoading();
             var resp = res.data;
             if (resp.code != 200) {
               app.alert({ 'content': resp.msg })
@@ -47,11 +52,14 @@ Page({
         });
        
     },
+
+
     addressSet: function () {
         wx.navigateTo({
             url: "/pages/my/addressSet"
         });
     },
+
     selectAddress: function () {
         wx.navigateTo({
             url: "/pages/my/addressList"
@@ -59,7 +67,7 @@ Page({
     },
 
     // 订单信息的请求
-  getOrderInfo:function(){
+    getOrderInfo:function(){
       var that = this;
       var data = {
         type:this.data.params.type,
@@ -89,4 +97,6 @@ Page({
       });
 
   }
+
+  
 });

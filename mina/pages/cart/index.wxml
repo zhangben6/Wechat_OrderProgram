@@ -33,6 +33,8 @@
             </view>
         </view>
     </view>
+
+
     <view class="jiesuan-box" wx:if="{{ list.length }}">
         <view class="left-price">
             <view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">全选</view>
@@ -41,4 +43,5 @@
         <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="toPayOrder">去结算</view>
         <view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{saveHidden}}" bindtap="deleteSelected">删除</view>
     </view>
+    
 </view>
