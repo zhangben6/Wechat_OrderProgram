@@ -4,12 +4,13 @@
 from application import db,app
 from common.models.food.Food import Food
 from common.models.pay.PayOrder import PayOrder
+from common.models.food.FoodSaleChangeLog import FoodSaleChangeLog
 from common.models.pay.PayOrderItem import PayOrderItem
-from common.models.pay.PayOrderCallbackData import PayOrderCallbackDatum
+from common.models.pay.PayOrderCallbackData import PayOrderCallbackData
 from common.libs.Helper import getCurrentDate
 from common.libs.food.FoodService import FoodService
+from common.libs.queue.QueueService import QueueService
 import time,hashlib,random
-
 import decimal
 
 
@@ -137,35 +138,76 @@ class PayService():
                 break
         return sn
 
+    # 重新修改生成订单号的方式
+    def geneOrderSn1(self):
+        now = time.time()
+        localtime = time.localtime(now)
+        date_format_localtime = time.strftime("%Y%m%d%H%M%S", localtime)
+        return int(date_format_localtime)
 
-    # 下单成功后的操作
+    # 下单成功后的操作(下单成功的操作)
     def orderSuccess(self,pay_order_id=0,params=None):
         try:
             pay_order_info = PayOrder.query.filter_by(id=pay_order_id).first()
-            if not pay_order_info or pay_order_info.status not in [-8.-7]:
+
+            # 如果是以下情况的话,说明不用处理
+            if not pay_order_info or pay_order_info.status not in [-8,-7]:
                 return True
-            # 第三方号流水信息
+
+
+            # 在pay_order表中添加第三方号流水信息
             pay_order_info.pay_sn = params['pay_sn'] if params and 'pay_sn' in params else ''
             pay_order_info.status = 1
+
+            # 设置快递状态
             pay_order_info.express_status = -7
+            pay_order_info.pay_time = getCurrentDate()
             pay_order_info.updated_time = getCurrentDate()
             db.session.add(pay_order_info)
+
+            # 付款成功后,改变销售记录明细表的信息 ***************
+
+            # 首先取出items中总共有多少中商品
+            pay_order_items = PayOrderItem.query.filter_by(pay_order_id=pay_order_id).all()
+            for order_item in pay_order_items:
+                tmp_model_sale_log = FoodSaleChangeLog()
+                tmp_model_sale_log.food_id = order_item.food_id
+
+                # 购买单品的件数记录值 ---> food_sale_change_log 表
+                tmp_model_sale_log.quantity = order_item.quantity
+                tmp_model_sale_log.price = order_item.price
+                tmp_model_sale_log.member_id = order_item.member_id
+                tmp_model_sale_log.created_time = getCurrentDate()
+                db.session.add(tmp_model_sale_log)
+
+
             db.session.commit()
 
         except Exception as e:
             db.session.rollback()
             return False
 
+        # 回调成功的话 去 queue_list加入一条消息
+        QueueService.addQueue('pay',{
+            'member_id':pay_order_info.member_id,
+            'pay_order_id':pay_order_info.id
+        })
 
+
+
+    # 添加支付成功后的回调信息
     def addPayCallbackData(self,pay_order_id=0,type='pay',data=''):
-        model_callback = PayOrderCallbackDatum()
+        model_callback = PayOrderCallbackData()
         model_callback.pay_order_id = pay_order_id
         if type == 'pay':
             model_callback.pay_data = data
             model_callback.refund_data = ''
+
+        # 如果是回调信息是退款信息
         else:
             model_callback.refund_data = data
             model_callback.pay_data = ''
+
         model_callback.created_time = model_callback.updated_time = getCurrentDate()
         db.session.add(model_callback)
         db.session.commit()

@@ -114,45 +114,52 @@ def orderPay():
     req = request.values
     order_sn = req['order_sn'] if 'order_sn' in req else ''
 
+
+    # 判断订单信息是否存在
     pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
+
     if not pay_order_info:
         resp['code'] = -1
         resp['msg'] = '系统繁忙,稍后再试-1'
         return jsonify(resp)
 
+    # 为了取出openid的值
     oauth_bind_info = OauthMemberBind.query.filter_by(member_id=member_info.id).first()
     if not oauth_bind_info:
         resp['code'] = -1
-        resp['msg'] = '系统繁忙,稍后再试-2'
+        resp['msg'] = '系统繁忙,稍后再试-2'  # 为了防止钓鱼网站,不给出具体提示信息
         return jsonify(resp)
 
+
     config_mina = app.config['MINA_APP']
-    # 设置回调函数
+    # 设置回调函数  重要**************
     notify_url = app.config['APP']['domain'] + config_mina['callback_url']
 
+    # 创建对象,引入微信下单的方法
     target_wechat = WeChatService(merchant_key=config_mina['paykey'])
+
     data = {
         'appid':config_mina['appid'],
         'mch_id':config_mina['mch_id'],
         'nonce_str':target_wechat.get_nonce_str(),
-        'body':'订餐 ',
-        'out_trade_no':'pay_order_info.order_sn',
+        'body':'订餐',
+        'out_trade_no': pay_order_info.order_sn,
         'total_fee':int( pay_order_info.total_price * 100 ),
         'notify_url':notify_url,
         'trade_type':'JSAPI',
         'openid':oauth_bind_info.openid
     }
 
+
     pay_info = target_wechat.get_pay_info(data)
 
-    # 保存prepay_id为了后面发模板消息
+    # 保存prepay_id为了后面发模板消息,prepay_id为第三方预付id
     pay_order_info.prepay_id = pay_info['prepay_id']
     db.session.add(pay_order_info)
     db.session.commit()
     resp['data']['pay_info'] = pay_info
 
 
-    ######################
 
     return jsonify(resp)
 
@@ -165,31 +172,38 @@ def callBack():
         'return_code':'SUCCESS',
         'return_msg':'OK'
     }
-
     header = {'content-Type':'application/xml'}
+
+    # 对微信下单成功后的返回给我们的信息(xml)进行验证
     config_mina = app.config['MINA_APP']
     target_wechat = WeChatService(merchant_key=config_mina['paykey'])
+
+    # 取出微信给我们的xml信息,并转换成dict数据格式
     callback_data = target_wechat.xml_to_dict(request.data)
     app.logger.info(callback_data)
 
-    # 取出sign值,再生成一次sign值,做比较,防止伪造
+    # 取出sign值,再生成一次sign值,做比较,防止伪造 ******************************
     sign = callback_data['sign']
     callback_data.pop('sign')
     gene_sign = target_wechat.create_sign(callback_data)
     app.logger.info(gene_sign)
-    if sign != gene_sign:
-        result_data['return_code'] = result_data['return_msg'] = 'FAIL'
-        return target_wechat.dict_to_xml(result_data),header
 
-    # 对比金钱的数量是否正确
+    # 两次sign值做比较,如果测试官网的回调函数代码,这个步骤就要省略
+    # if sign != gene_sign:
+    #     result_data['return_code'] = result_data['return_msg'] = 'FAIL'
+    #     return target_wechat.dict_to_xml(result_data),header
+
+    # 对比金钱的数量是否正确 ****************************
     order_sn = callback_data['out_trade_no']
     pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
     if not pay_order_info:
         result_data['return_code'] = result_data['return_msg'] = 'FAIL'
+        app.logger.info('1111',order_sn)
         return target_wechat.dict_to_xml(result_data), header
 
     if int(pay_order_info.total_price * 100) != int(callback_data['total_fee']):
         result_data['return_code'] = result_data['return_msg'] = 'FAIL'
+        app.logger.info('2222',order_sn)
         return target_wechat.dict_to_xml(result_data), header
 
     if pay_order_info.status == 1:
@@ -200,6 +214,7 @@ def callBack():
     target_pay.orderSuccess(pay_order_id=pay_order_info.id,params={'pay_sn':callback_data['transaction_id']})
 
     # 将微信回调的信息存表
+    target_pay.addPayCallbackData(pay_order_id=pay_order_info.id,data=request.data)
 
     return target_wechat.dict_to_xml(result_data),header
 

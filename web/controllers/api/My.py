@@ -49,10 +49,11 @@ def myOrderList():
         # 根据订单表得出对象们,然后在PayOrderItem中求出对应的菜品对象们(他们有关联关系)
         pay_order_ids = selectFilterObj(pay_order_list,'id')
         pay_order_item_list = PayOrderItem.query.filter(PayOrderItem.pay_order_id.in_(pay_order_ids)).all()
+
         food_ids = selectFilterObj(pay_order_item_list,'food_id')
         food_map = getDictFilterField(Food,Food.id,'id',food_ids)
 
-        #　大的框架
+        #　前台good_list的框架
         pay_order_item_map = {}
 
         # 循环从表的信息
@@ -62,7 +63,10 @@ def myOrderList():
                 if item.pay_order_id not in pay_order_item_map:
                     pay_order_item_map[item.pay_order_id]=[]
 
+                # 取出商品对象
                 tmp_food_info = food_map[item.food_id]
+
+                # 封装数据
                 pay_order_item_map[item.pay_order_id].append({
                     'id':item.id,
                     'food_id':item.food_id,
@@ -71,8 +75,8 @@ def myOrderList():
                     'name':tmp_food_info.name
                 })
 
+        app.logger.info(pay_order_item_map)
 
-                    
         # 循环主表的信息
         for item in pay_order_list:
             tmp_data = {

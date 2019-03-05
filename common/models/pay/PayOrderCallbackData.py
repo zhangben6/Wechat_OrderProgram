@@ -6,7 +6,7 @@ from application import db
 
 
 
-class PayOrderCallbackDatum(db.Model):
+class PayOrderCallbackData(db.Model):
     __tablename__ = 'pay_order_callback_data'
 
     id = db.Column(db.Integer, primary_key=True)
