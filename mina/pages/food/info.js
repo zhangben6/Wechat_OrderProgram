@@ -124,7 +124,7 @@ Page({
         "id": this.data.info.id,
         "price": this.data.info.price,
         "number": this.data.buyNumber,
-      }]
+      }],
     };
 
     this.setData({

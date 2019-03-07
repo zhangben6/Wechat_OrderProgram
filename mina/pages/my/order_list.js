@@ -6,6 +6,7 @@ Page({
     currentType: 0,
     tabClass: ["", "", "", "", "", ""]
   },
+
   statusTap: function(e) {
     var curType = e.currentTarget.dataset.index;
     this.data.currentType = curType;
@@ -14,18 +15,23 @@ Page({
     });
     this.onShow();
   },
+
   orderDetail: function(e) {
     wx.navigateTo({
       url: "/pages/my/order_info"
     })
   },
+
   onLoad: function(options) {
     // 生命周期函数--监听页面加载
 
   },
+
   onReady: function() {
     // 生命周期函数--监听页面初次渲染完
   },
+
+
   onShow: function() {
     var that = this;
     // that.setData({
@@ -82,7 +88,7 @@ Page({
         if (resp.code != 200) {
           app.alter({
             'content': resp.msg
-          })
+          });
           return;
         }
         that.setData({
@@ -112,17 +118,69 @@ Page({
           })
           return;
         }
+
         var pay_info = resp.data.pay_info;
         wx.requestPayment({
-          timeStamp: pay_info.timeStamp,
-          nonceStr: pay_info.nonceStr,
-          package: pay_info.package,
-          signType: 'MD5',
-          paySign: pay_info.paySign,
-          success(res) {},
-          fail(res) {} 
+          'timeStamp': pay_info.timeStamp,
+          'nonceStr': pay_info.nonceStr,
+          'package': pay_info.package,
+          'signType': 'MD5',
+          'paySign': pay_info.paySign,
+          'success':function(res){
+            console.log(1,res)
+          },
+          'fail':function(res){
+            console.log(2,res)
+          }, 
         })
+
+
       }
     });
+  },
+
+  orderCancel:function(e){
+    this.orderOps(e.currentTarget.dataset.id, "cancel", "你他妈确定?");
+  },
+
+  orderConfirm: function (e) {
+    this.orderOps(e.currentTarget.dataset.id, "confirm", "确定收到？");
+  },
+
+  orderComment: function (e) {
+    wx.navigateTo({
+      url: "/pages/my/comment?order_sn=" + e.currentTarget.dataset.id
+    });
+  }, 
+
+  orderOps: function (order_sn, act, msg) {
+    var that = this;
+    var params = {
+      "content": msg,
+      "cb_confirm": function () {
+        wx.request({
+          url: app.buildUrl("/order/ops"),
+          header: app.getRequestHeader(),
+          method: 'POST',
+          data: {
+            order_sn: order_sn,
+            act: act
+          },
+          success: function (res) {
+            var resp = res.data;
+            app.alert({ "content": resp.msg });
+            if (resp.code == 200) {
+              //重新获取列表页
+              that.getPayOrder();
+            }
+          }
+        });
+      }
+    };
+    app.tip(params);
   }
+
+
+
 });
+

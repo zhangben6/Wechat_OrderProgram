@@ -13,5 +13,7 @@ Page({
                 avatar_url: "/images/more/logo.png"
             },
         })
-    }
+    },
+
+    //从后台得到用户
 });
