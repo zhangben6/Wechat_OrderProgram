@@ -38,7 +38,7 @@ MINA_APP = {
     'appkey':'daf8d4679d8e3c4c585c5eab232b5051',
     'paykey': 'JINTIANSHI2019NIANSANYUEWUHAOZZZ',
     'mch_id':'1527443731',
-    'callback_url':'api/order/callback'
+    'callback_url':'/api/order/callback'
 }
 
 # 用户上传图片用到的一些设置

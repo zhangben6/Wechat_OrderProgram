@@ -1,13 +1,20 @@
 from application import app,manager
 from flask_script import Server
 import www
-
+from jobs.launcher import runJob
 
 # web server(管理Manager创建对象的属性,类似于app的config设置)
 manager.add_command('runserver',Server(host='0.0.0.0',
                                        port=app.config['SERVER_PORT'],
                                        use_debugger=True,
                                        use_reloader = True))
+
+
+# job entrance
+manager.add_command('runjob',runJob())
+
+
+
 def main():
     manager.run()
 

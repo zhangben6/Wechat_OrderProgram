@@ -5,7 +5,7 @@ from common.models.member.MemberCart import MemberCart
 from common.models.pay.PayOrder import PayOrder
 from common.models.member.OauthMemberBind import OauthMemberBind
 from common.libs.member.CartService import CartService
-from common.libs.Helper import selectFilterObj,getDictFilterField
+from common.libs.Helper import selectFilterObj,getDictFilterField,getCurrentDate
 from common.libs.pay.PayService import PayService
 from common.libs.UrlManager import UrlManager
 from application import app,db
@@ -138,6 +138,8 @@ def orderPay():
     # 创建对象,引入微信下单的方法
     target_wechat = WeChatService(merchant_key=config_mina['paykey'])
 
+
+    # 获取sign 签名的方法,需要传递这些数据
     data = {
         'appid':config_mina['appid'],
         'mch_id':config_mina['mch_id'],
@@ -149,7 +151,7 @@ def orderPay():
         'trade_type':'JSAPI',
         'openid':oauth_bind_info.openid
     }
-
+    app.logger.info(data)
 
     pay_info = target_wechat.get_pay_info(data)
 
@@ -198,12 +200,10 @@ def callBack():
     pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
     if not pay_order_info:
         result_data['return_code'] = result_data['return_msg'] = 'FAIL'
-        app.logger.info('1111',order_sn)
         return target_wechat.dict_to_xml(result_data), header
 
     if int(pay_order_info.total_price * 100) != int(callback_data['total_fee']):
         result_data['return_code'] = result_data['return_msg'] = 'FAIL'
-        app.logger.info('2222',order_sn)
         return target_wechat.dict_to_xml(result_data), header
 
     if pay_order_info.status == 1:
@@ -218,6 +218,38 @@ def callBack():
 
     return target_wechat.dict_to_xml(result_data),header
 
+
+# 订单页的取消和确认收获.. 一系列操作
+@route_api.route('/order/ops',methods=['POST'])
+def orderOps():
+    # 返回结果集为json
+    resp = {'code':200,'msg':'操作成功','data':{}}
+    req = request.values
+    member_info = g.member_info
+    order_sn = req['order_sn'] if 'order_sn' in req else ''
+    act = req['act'] if 'act' in req else ''
+    pay_order_info = PayOrder.query.filter_by(order_sn=order_sn,member_id=member_info.id).first()
+    if not pay_order_info:
+        resp['code'] = -1
+        resp['msg'] = '系统繁忙,稍后再试'
+        return jsonify(resp)
+
+    if act == 'cancel':
+        target_pay = PayService()
+        ret = target_pay.closeOrder(pay_order_id=pay_order_info.id)
+        if not ret:
+            resp['code'] = -1
+            resp['msg'] = '系统繁忙,稍后再试'
+            return jsonify(resp)
+
+
+    elif act == 'confirm':
+        pay_order_info.express_status = 1
+        pay_order_info.updated_time = getCurrentDate()
+        db.session.add(pay_order_info)
+        db.session.commit()
+
+    return jsonify(resp)
 
 
 

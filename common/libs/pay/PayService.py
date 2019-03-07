@@ -18,6 +18,7 @@ class PayService():
     def __init__(self):
         pass
 
+    # 创建订单的系列操作
     def createOrder(self,member_id,items=None,params=None):
         resp = {'code': 200, 'msg': '操作成功', 'data': {}}
 
@@ -106,7 +107,6 @@ class PayService():
 
                 # 下完单更新后台的库存量  FoodStockChangeLog
                 ret = FoodService.setStockChangeLog(item['id'],-item['number'],'在线购买')
-                app.logger.info('爱的就是ni',ret)
             # 提交事物
             db.session.commit()
             resp['data'] = {
@@ -125,6 +125,33 @@ class PayService():
 
 
         return resp
+
+    # 取消订单的操作
+    def closeOrder(self,pay_order_id=0):
+        if pay_order_id < 1:
+            return False
+        pay_order_info = PayOrder.query.filter_by(id=pay_order_id,status=-8).first()
+        if not pay_order_info:
+            return False
+
+        # 归还数据
+        pay_order_items = PayOrderItem.query.filter_by(pay_order_id=pay_order_id).all()
+        if pay_order_items:
+            for item in pay_order_items:
+                tmp_food_info = Food.query.filter_by(id=item.food_id).first()
+                if tmp_food_info:
+                    tmp_food_info.stock = tmp_food_info.stock + item.quantity
+                    tmp_food_info.update_time = getCurrentDate()
+                    db.session.add(tmp_food_info)
+                    db.session.commit()
+                    FoodService.setStockChangeLog(item.food_id,item.quantity,'订单取消')
+
+        pay_order_info.status = 0  # 代表无效状态
+        pay_order_info.updated_time = getCurrentDate()
+        db.session.add(pay_order_info)
+        db.session.commit()
+        return True
+
 
     # 此方法只随机生成payorder表的order_sn 随机数 md5方式
     def geneOrderSn(self):
@@ -192,8 +219,6 @@ class PayService():
             'member_id':pay_order_info.member_id,
             'pay_order_id':pay_order_info.id
         })
-
-
 
     # 添加支付成功后的回调信息
     def addPayCallbackData(self,pay_order_id=0,type='pay',data=''):

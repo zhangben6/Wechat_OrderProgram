@@ -3,8 +3,11 @@
 '''
 import hashlib,requests,uuid
 import xml.etree.ElementTree as ET
-from application import app
-import time
+from application import app,db
+from common.models.pay.OauthAccessToken import OauthAccessToken
+from common.libs.Helper import getCurrentDate
+from common.libs.pay.PayService import PayService
+import time,json,datetime
 
 class WeChatService():
     def __init__(self,merchant_key=None):
@@ -36,6 +39,8 @@ class WeChatService():
         获取支付信息
         '''
         sign = self.create_sign(pay_data)
+
+        # 把得到的签名放进去pay_data
         pay_data['sign'] = sign
 
         # 将这些要发送的信息转换成XML的信息
@@ -47,8 +52,10 @@ class WeChatService():
         url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
         r = requests.post(url=url,data=xml_data.encode('utf-8'),headers=headers)
         r.encoding = 'utf-8'
-
+        app.logger.info(r.text)
         # ***************************************** 卡壳
+
+        # 将这些数据返回给小程序,再发送网络请求,获取支付窗口,注意回调信息的地址是否填写无误
         if r.status_code == 200:
             prepay_id = self.xml_to_dict(r.text).get('prepay_id')
             pay_sign_data = {
@@ -64,6 +71,7 @@ class WeChatService():
             pay_sign_data['paySign'] = pay_sign
             pay_sign_data['prepay_id'] = prepay_id # 这个字段前台以后要用到
 
+            app.logger.info(pay_sign_data)
             return pay_sign_data
 
         return False
@@ -90,5 +98,66 @@ class WeChatService():
     # 产生随机字符串
     def get_nonce_str(self):
         return str( uuid.uuid4() ).replace('-','')
+
+
+    # post发送模板消息的时候,需要用到ACCESS TOKEN
+    # 此方法用于获取access token
+    def getAccessToken(self):
+        token = None
+
+        # 先查询是否有未过期的access_token
+        token_info = OauthAccessToken.query.filter(OauthAccessToken.expired_time>=getCurrentDate()).first()
+        if token_info:
+            token = token_info.access_token
+
+        config_mina = app.config['MINA_APP']
+        url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}'.format(config_mina['appid'],config_mina['appkey'])
+
+        # get请求方式获取Access token
+        r = requests.get(url=url)
+        if r.status_code != 200 or not r.text:
+            return token
+
+        data = json.loads(r.text)
+        now = datetime.datetime.now()
+        date = now + datetime.timedelta(seconds=data['expires_in']-200)
+
+        # 存取获取到的access_token到数据库
+        model_token = OauthAccessToken()
+        model_token.access_token = data['access_token']
+        model_token.expired_time = date.strftime("%Y-%m-%d %H:%M:%S")
+        model_token.created_time = getCurrentDate()
+        db.session.add(model_token)
+        db.session.commit()
+
+
+
+        return data['access_token']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

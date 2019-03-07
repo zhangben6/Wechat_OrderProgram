@@ -36,7 +36,7 @@ class PayOrder(db.Model):
             tmp_status = self.express_status
             if self.express_status == 1 and self.comment_status == 0:
                 tmp_status = -5
-            if self.express_status == 1 and self.comment_staus == 1:
+            if self.express_status == 1 and self.comment_status == 1:
                 tmp_status = 1
         return tmp_status
 

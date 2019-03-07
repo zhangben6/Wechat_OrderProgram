@@ -75,7 +75,6 @@ def myOrderList():
                     'name':tmp_food_info.name
                 })
 
-        app.logger.info(pay_order_item_map)
 
         # 循环主表的信息
         for item in pay_order_list:
