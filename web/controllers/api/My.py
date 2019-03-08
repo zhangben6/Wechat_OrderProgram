@@ -7,6 +7,7 @@ from common.models.food.Food import Food
 from common.models.member.MemberCart import MemberCart
 from common.libs.member.CartService import CartService
 from common.libs.Helper import selectFilterObj,getDictFilterField
+from common.models.member.MemberComments import MemberComments
 from common.libs.UrlManager import UrlManager
 from application import app
 from common.models.pay.PayOrder import PayOrder
@@ -93,5 +94,50 @@ def myOrderList():
     # 返回数据
     resp['data']['pay_order_list'] = data_pay_order_list
     return jsonify(resp)
+
+
+@route_api.route("/my/comment/list" )
+def myCommentList():
+    resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
+    member_info = g.member_info
+    comment_list = MemberComments.query.filter_by( member_id=member_info.id )\
+		.order_by(MemberComments.id.desc()).all()
+    data_comment_list = []
+    if comment_list:
+        pay_order_ids = selectFilterObj( comment_list,"pay_order_id" )
+        pay_order_map = getDictFilterField( PayOrder,PayOrder.id,"id",pay_order_ids )
+        for item in comment_list:
+            tmp_pay_order_info = pay_order_map[ item.pay_order_id ]
+            tmp_data = {
+				"date":item.created_time.strftime("%Y-%m-%d %H:%M:%S"),
+				"content":item.content,
+				"order_number":tmp_pay_order_info.order_number
+			}
+            data_comment_list.append( tmp_data )
+    resp['data']['list'] = data_comment_list
+    return jsonify(resp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

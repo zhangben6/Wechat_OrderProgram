@@ -80,6 +80,7 @@ def login():
 def checkReg():
     resp = {'code':200,'msg':'操作成功','data':{}}
     req = request.values
+    app.logger.info(req)
     code = req['code'] if 'code' in req else ''
     if not code or len(code) < 1:
         resp['code'] = -1
@@ -130,8 +131,17 @@ def memberShare():
     return jsonify(resp)
 
 
-
-
+# 个人中心页面 会员消息的获取
+@route_api.route('/member/info')
+def memeberInfo():
+    resp = {'code':200,'msg':'操作成功!','data':{}}
+    member_info = g.member_info
+    resp['data']['info'] = {
+        'nickname':member_info.nickname,
+        'avatar_url':member_info.avatar,
+        'mobile':member_info.mobile
+    }
+    return jsonify(resp)
 
 
 
