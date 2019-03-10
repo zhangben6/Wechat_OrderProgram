@@ -20,6 +20,7 @@ python manage.py runjob -m test/Index (  jobs/tasks/test/Index.py )
 '''
 class runJob( Command ):
 
+    # 捕获所有的异常
     capture_all_args = True
     def run(self,*args,**kwargs):
         args = sys.argv[2:]
@@ -38,8 +39,9 @@ class runJob( Command ):
             return self.tips()
 
         module_name = ret_params['name'].replace( "/","." )
+
         try:
-            import_string = "from jobs.tasks.%s import JobTask as  job_target" % ( module_name )
+            import_string = "from jobs.tasks.%s import JobTask as job_target" % ( module_name )
             exec( import_string , globals() )
             target = job_target()
             target.run( ret_params )

@@ -38,6 +38,8 @@ class WeChatService():
         '''
         获取支付信息
         '''
+
+        # 生成签名
         sign = self.create_sign(pay_data)
 
         # 把得到的签名放进去pay_data
@@ -46,6 +48,7 @@ class WeChatService():
         # 将这些要发送的信息转换成XML的信息
         xml_data = self.dict_to_xml(pay_data)
 
+        # post提交数据
         headers = {
             'Content-Type':'application/xml'
         }
@@ -65,7 +68,9 @@ class WeChatService():
                 'package':'prepay_id={0}'.format(prepay_id),
                 'signType':'MD5'
             }
-            # 微信调用支付窗口也要生成一个签名,且需要appid的信息
+
+
+            # 前端微信调用支付窗口也要生成一个签名,且需要appid的信息
             pay_sign = self.create_sign(pay_sign_data)
             pay_sign_data.pop('appId')
             pay_sign_data['paySign'] = pay_sign
@@ -106,10 +111,10 @@ class WeChatService():
         token = None
 
         # 先查询是否有未过期的access_token
-        token_info = OauthAccessToken.query.filter(OauthAccessToken.expired_time>=getCurrentDate()).first()
+        token_info = OauthAccessToken.query.filter(OauthAccessToken.expired_time >= getCurrentDate()).first()
         if token_info:
             token = token_info.access_token
-
+            return token
         config_mina = app.config['MINA_APP']
         url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}'.format(config_mina['appid'],config_mina['appkey'])
 
@@ -118,19 +123,20 @@ class WeChatService():
         if r.status_code != 200 or not r.text:
             return token
 
+        # 开发者文档此处的返回值是json格式数据
         data = json.loads(r.text)
+
+        #　到期时间对应的时间戳(expires_in = 7200)
         now = datetime.datetime.now()
         date = now + datetime.timedelta(seconds=data['expires_in']-200)
-
         # 存取获取到的access_token到数据库
         model_token = OauthAccessToken()
         model_token.access_token = data['access_token']
+        # 设置过期时间
         model_token.expired_time = date.strftime("%Y-%m-%d %H:%M:%S")
         model_token.created_time = getCurrentDate()
         db.session.add(model_token)
         db.session.commit()
-
-
 
         return data['access_token']
 

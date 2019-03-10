@@ -114,10 +114,8 @@ def orderPay():
     req = request.values
     order_sn = req['order_sn'] if 'order_sn' in req else ''
 
-
     # 判断订单信息是否存在
     pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
-
     if not pay_order_info:
         resp['code'] = -1
         resp['msg'] = '系统繁忙,稍后再试-1'
@@ -131,13 +129,11 @@ def orderPay():
         return jsonify(resp)
 
 
+    # 设置回调地址  重要**************
     config_mina = app.config['MINA_APP']
-    # 设置回调函数  重要**************
     notify_url = app.config['APP']['domain'] + config_mina['callback_url']
-
     # 创建对象,引入微信下单的方法
     target_wechat = WeChatService(merchant_key=config_mina['paykey'])
-
 
     # 获取sign 签名的方法,需要传递这些数据
     data = {
@@ -151,17 +147,15 @@ def orderPay():
         'trade_type':'JSAPI',
         'openid':oauth_bind_info.openid
     }
-    app.logger.info(data)
 
+    # 重要操作: 1.生成签名  2.拼接数据转成xml格式 通过post方式发送为微信服务器,得到响应数据
     pay_info = target_wechat.get_pay_info(data)
-
+    app.logger.info('我爱你啊',pay_info)
     # 保存prepay_id为了后面发模板消息,prepay_id为第三方预付id
     pay_order_info.prepay_id = pay_info['prepay_id']
     db.session.add(pay_order_info)
     db.session.commit()
     resp['data']['pay_info'] = pay_info
-
-
 
     return jsonify(resp)
 
@@ -184,7 +178,7 @@ def callBack():
     callback_data = target_wechat.xml_to_dict(request.data)
     app.logger.info(callback_data)
 
-    # 取出sign值,再生成一次sign值,做比较,防止伪造 ******************************
+    # 取出sign值(签名),再生成一次sign值,做比较,防止伪造 ******************************
     sign = callback_data['sign']
     callback_data.pop('sign')
     gene_sign = target_wechat.create_sign(callback_data)
@@ -196,6 +190,8 @@ def callBack():
     #     return target_wechat.dict_to_xml(result_data),header
 
     # 对比金钱的数量是否正确 ****************************
+
+    # 取出订单号查询对应的订单信息
     order_sn = callback_data['out_trade_no']
     pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
     if not pay_order_info:
@@ -206,10 +202,11 @@ def callBack():
         result_data['return_code'] = result_data['return_msg'] = 'FAIL'
         return target_wechat.dict_to_xml(result_data), header
 
+    # 微信会有间隔的返回数据,如果订单的状态已经置为1,则直接返回
     if pay_order_info.status == 1:
         return target_wechat.dict_to_xml(result_data), header
 
-    # 下单成功
+    # 下单成功(微信支付回调成功的操作:pay_order的状态置为1,其他状态值也要修改)
     target_pay = PayService()
     target_pay.orderSuccess(pay_order_id=pay_order_info.id,params={'pay_sn':callback_data['transaction_id']})
 

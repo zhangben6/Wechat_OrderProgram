@@ -147,11 +147,11 @@ class PayService():
                     FoodService.setStockChangeLog(item.food_id,item.quantity,'订单取消')
 
         pay_order_info.status = 0  # 代表无效状态
+        pay_order_info.express_status = 0  # 代表无效状态
         pay_order_info.updated_time = getCurrentDate()
         db.session.add(pay_order_info)
         db.session.commit()
         return True
-
 
     # 此方法只随机生成payorder表的order_sn 随机数 md5方式
     def geneOrderSn(self):
@@ -197,16 +197,14 @@ class PayService():
             # 首先取出items中总共有多少中商品
             pay_order_items = PayOrderItem.query.filter_by(pay_order_id=pay_order_id).all()
             for order_item in pay_order_items:
+                # 购买单品的件数记录值 ---> food_sale_change_log 表
                 tmp_model_sale_log = FoodSaleChangeLog()
                 tmp_model_sale_log.food_id = order_item.food_id
-
-                # 购买单品的件数记录值 ---> food_sale_change_log 表
                 tmp_model_sale_log.quantity = order_item.quantity
                 tmp_model_sale_log.price = order_item.price
                 tmp_model_sale_log.member_id = order_item.member_id
                 tmp_model_sale_log.created_time = getCurrentDate()
                 db.session.add(tmp_model_sale_log)
-
 
             db.session.commit()
 
@@ -230,7 +228,7 @@ class PayService():
 
         # 如果是回调信息是退款信息
         else:
-            model_callback.refund_data = data
+            model_callback.refund_data = data  # 退款回调信息
             model_callback.pay_data = ''
 
         model_callback.created_time = model_callback.updated_time = getCurrentDate()

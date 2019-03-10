@@ -20,7 +20,8 @@ class JobTask():
         pass
 
     def run(self,params):
-        list = QueueList.query.filter_by(status= -1).order_by(QueueList.id.asc()).limit(1).all()
+        # 在测试环境下,为了方便处理,每次只limit一条数据
+        list = QueueList.query.filter_by(status = -1).order_by(QueueList.id.desc()).limit(1).all()
         for item in list:
             if item.queue_name == 'pay':
                 self.handlePay(item)
@@ -38,7 +39,6 @@ class JobTask():
 
         # 查询用户的openid用于post发送数据
         oauth_bind_info = OauthMemberBind.query.filter_by(member_id=data['member_id']).first()
-        app.logger.info(oauth_bind_info.openid)
         if not oauth_bind_info:
             return False
 
@@ -55,25 +55,27 @@ class JobTask():
 
         if pay_order_items:
             # 月的数量
-            date_from = datetime.datetime.now().strftime("%Y-%m-01 00:00:00")
-            date_to = datetime.datetime.now().strftime("%Y-%m-31 23:59:59")
+            # date_from = datetime.datetime.now().strftime("%Y-%m-01 00:00:00") # 起始时间
+            # date_to = datetime.datetime.now().strftime("%Y-%m-31 23:59:59") # 月末
+
             for item in pay_order_items:
                 tmp_food_info = Food.query.filter_by( id=item.food_id ).first()
                 if not tmp_food_info:
                     continue
+                # 拼接模板消息的备注
                 notice_content.append('%s %s份'%(tmp_food_info.name,item.quantity))
 
                 # 当月的销售
-                tmp_stat_info = db.session.query(FoodSaleChangeLog,func.sum(FoodSaleChangeLog.quantity).label("total"))\
-                    .filter(FoodSaleChangeLog.food_id==item.food_id)\
-                    .filter(FoodSaleChangeLog.created_time>=date_from,FoodSaleChangeLog.created_time <= date_to).first()
-                tmp_month_count = tmp_stat_info[1] if tmp_stat_info[1] else 0
+                # tmp_stat_info = db.session.query(FoodSaleChangeLog,func.sum(FoodSaleChangeLog.quantity).label("total"))\
+                #     .filter(FoodSaleChangeLog.food_id==item.food_id)\
+                #     .filter(FoodSaleChangeLog.created_time>=date_from,FoodSaleChangeLog.created_time <= date_to).first()
+                # tmp_month_count = tmp_stat_info[1] if tmp_stat_info[1] else 0
 
 
-                tmp_food_info.total_count += 1
-                tmp_food_info.month_count = 0
-                db.session.add(tmp_food_info)
-                db.session.commit()
+                # tmp_food_info.total_count += 1
+                # tmp_food_info.month_count = 0
+                # db.session.add(tmp_food_info)
+                # db.session.commit()
 
         # 拼接模板消息
         keyword1_val = pay_order_info.note if pay_order_info.note else '无'
@@ -90,8 +92,9 @@ class JobTask():
         params = {
                 "touser": oauth_bind_info.openid,
                 "template_id": "0TYMLGfoxWFHK7UMc3p0pOVVrbtwEDGjnm5ewQ8uZKc",
+                 # 页面跳转到订单页
                 "page": "pages/my/order_list",
-                "form_id": pay_order_info.prepay_id,
+                "form_id": str(pay_order_info.prepay_id),
                 "data": {
                     "keyword1": {
                         "value": keyword1_val
