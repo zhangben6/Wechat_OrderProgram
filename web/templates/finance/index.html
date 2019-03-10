@@ -1,19 +1,6 @@
 {% extends "common/layout_main.html" %}
 {% block content %}
-<div class="row  border-bottom">
-    <div class="col-lg-12">
-        <div class="tab_title">
-            <ul class="nav nav-pills">
-                <li class="current">
-                    <a href="{{ buildUrl('/finance/index') }}">订单列表</a>
-                </li>
-                <li>
-                    <a href="{{ buildUrl('/finance/account') }}">财务流水</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+{% include "common/tab_finance.html" %}
 <div class="row">
     <div class="col-lg-12">
         <form class="form-inline wrap_search">
@@ -21,9 +8,9 @@
                 <div class="form-group">
                     <select name="status" class="form-control inline">
                         <option value="-1">请选择状态</option>
-                        <option value="1">已支付</option>
-                        <option value="-8">待支付</option>
-                        <option value="0">已关闭</option>
+                        {% for tmp_key in pay_status_mapping %}
+                        <option value="{{ tmp_key }}" {% if tmp_key == search_con['status']  %} selected {% endif %}>{{  pay_status_mapping[ tmp_key ] }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -42,33 +29,36 @@
             </tr>
             </thead>
             <tbody>
+            {% if list %}
+                {% for item in list %}
             <tr>
-                <td>20171231347</td>
+                <td>{{ item.order_number }}</td>
                 <td>
-                    小鸡炖蘑菇 × 1<br>
+                    {% for item_food in item.foods %}
+                        {{ item_food.name }}  × {{ item_food.quantity }}
+                    {% endfor %}
                 </td>
-                <td>0.01</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.pay_time }}</td>
+                <td>{{ item.status_desc }}</td>
+                <td>{{ item.created_time }}</td>
                 <td>
-                </td>
-                <td>已关闭</td>
-                <td>2017-12-31 13:35</td>
-                <td>
-                    <a href="{{ buildUrl('/finance/pay-info') }}">
+                    <a href="{{ buildUrl('/finance/pay-info') }}?id={{ item.id }}">
                         <i class="fa fa-eye fa-lg"></i>
                     </a>
                 </td>
             </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="7">暂无数据~~</td></tr>
+            {% endif %}
             </tbody>
         </table>
         <!--分页代码已被封装到统一模板文件中-->
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="pagination_count" style="line-height: 40px;">共1条记录 | 每页50条</span>
-                <ul class="pagination pagination-lg pull-right" style="margin: 0 0 ;">
-                    <li class="active"><a href="javascript:void(0);">1</a></li>
-                </ul>
-            </div>
-        </div>
+         {% include 'common/pagenation.html' %}
     </div>
 </div>
+{% endblock %}
+{% block js %}
+<script src="{{ buildStaticUrl('/js/finance/index.js') }}"></script>
 {% endblock %}

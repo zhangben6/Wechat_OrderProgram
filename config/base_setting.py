@@ -60,6 +60,13 @@ API_IGNORE_URLS = [
     '^/api'
 ]
 
+PAY_STATUS_MAPPING = {
+    '1':'已支付',
+    '-8':'待支付',
+    '0':'已关闭'
+}
+
+
 
 # 订单状态的类型
 PAY_STATUS_DISPLAY_MAPPING = {
@@ -67,7 +74,7 @@ PAY_STATUS_DISPLAY_MAPPING = {
     '1':'支付成功',
     '-8':'待支付',
     '-7':'待发货',
-    '-6':'待确认',
+    '-6':'待确认收货',
     '-5':'待评价'
 }
 
