@@ -19,6 +19,25 @@ Page({
 
     },
     onShow: function () {
-        var that = this;
+        this.getCommentList();
+    },
+
+    getCommentList:function(){
+      var that = this;
+      wx.request({
+        url:app.buildUrl("/my/comment/list"),
+        header:app.getRequestHeader(),
+        success:function(res){
+          var resp = res.data;
+          if (resp.code != 200){
+            app.alert({'content':resp.msg});
+            return;
+          }
+          that.setData({
+            list:resp.data.list
+          })
+         }
+
+      });
     }
 });

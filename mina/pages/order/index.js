@@ -54,9 +54,9 @@ Page({
     },
 
 
-    addressSet: function () {
+    addressSet: function (e) {
         wx.navigateTo({
-            url: "/pages/my/addressSet"
+          url: "/pages/my/addressSet?id=" + e.currentTarget.dataset.id
         });
     },
 

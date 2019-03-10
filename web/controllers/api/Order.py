@@ -6,6 +6,7 @@ from common.models.pay.PayOrder import PayOrder
 from common.models.member.OauthMemberBind import OauthMemberBind
 from common.libs.member.CartService import CartService
 from common.libs.Helper import selectFilterObj,getDictFilterField,getCurrentDate
+from common.models.member.MemberAddress import MemberAddress
 from common.libs.pay.PayService import PayService
 from common.libs.UrlManager import UrlManager
 from application import app,db
@@ -60,11 +61,15 @@ def orderInfo():
             data_food_list.append(tmp_data)
 
     # 定义默认的收获地址,根据前台的数据
-    default_address = {
-        'name': "编程浪子",
-        'mobile': "12345678901",
-        'detail':"上海市浦东新区XX"
-    }
+    default_address = None
+    # 丛数据库中查询书
+    Address = MemberAddress.query.filter_by(is_default=1).first()
+    if Address:
+        default_address = {
+            'name': Address.nickname,
+            'mobile': Address.mobile,
+            'detail': Address.province_str+Address.city_str+Address.address
+        }
 
     resp['data']['food_list'] = data_food_list
     resp['data']['pay_price'] = str(pay_price )

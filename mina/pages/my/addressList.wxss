@@ -22,7 +22,7 @@
     padding-left: 58rpx;
 }
 .a-address .left-text.active{
-    background: url(http://cdn.static.54php.cn/mina_order//addr-active.png) no-repeat left center;
+    background: url(http://m.qpic.cn/psb?/V103WQmv1hIOqq/2ekkggc.KWzmaR4D58c7OatdSAo7N7YN79HcjKsEBvI!/b/dMAAAAAAAAAA&bo=OAAoAAAAAAADBzI!&rf=viewer_4) no-repeat left center;
     background-size: 28rpx auto;
 }
 .a-address .left-text .name-tel{
@@ -38,7 +38,7 @@
     height: 100%;
     padding: 50rpx 0 50rpx 58rpx;
     box-sizing: border-box;
-    background: url(http://cdn.static.54php.cn/mina_order/addr-edit.png) no-repeat 43rpx center;
+    background: url(http://m.qpic.cn/psb?/V103WQmv1hIOqq/j2ItQXrazoqQMNwtBtxTJpVB1zbBGeCN3l7mlhTI97g!/b/dL8AAAAAAAAA&bo=SABIAAAAAAADByI!&rf=viewer_4) no-repeat 43rpx center;
     background-size: 35rpx auto;
 }
 .bottom-box{
@@ -56,6 +56,6 @@
 .bottom-box .add-btn{
     margin-left: 30rpx;
     padding-left: 70rpx;
-    background: url(http://cdn.static.54php.cn/mina_order/add-addr.png) no-repeat left center;
+    background: url(http://m.qpic.cn/psb?/V103WQmv1hIOqq/2C3K0QOJAzIVzJe9ZOdaW*dMF*PUBfO90V0zr0klPaI!/b/dMEAAAAAAAAA&bo=UABQAAAAAAADByI!&rf=viewer_4.png) no-repeat left center;
     background-size: 40rpx auto;
 }

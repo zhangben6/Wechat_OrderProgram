@@ -139,7 +139,7 @@ def memeberInfo():
     resp['data']['info'] = {
         'nickname':member_info.nickname,
         'avatar_url':member_info.avatar,
-        'mobile':member_info.mobile
+        'mobile':member_info.mobile    # api接口获取不了手机号
     }
     return jsonify(resp)
 

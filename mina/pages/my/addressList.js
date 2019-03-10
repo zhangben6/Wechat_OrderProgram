@@ -1,36 +1,58 @@
 //获取应用实例
 var app = getApp();
 Page({
-    data: {
-        addressList: []
-    },
-    selectTap: function (e) {
-        //从商品详情下单选择地址之后返回
-        wx.navigateBack({});
-    },
-    addessSet: function (e) {
-        wx.navigateTo({
-            url: "/pages/my/addressSet"
-        })
-    },
-    onShow: function () {
-        var that = this;
+  data: {},
+  onShow: function () {
+    var that = this;
+    this.getList();
+  },
+  //选中谁就把谁设置为默认的
+  selectTap: function (e) {
+    var that = this;
+    wx.request({
+      url: app.buildUrl("/my/address/ops"),
+      header: app.getRequestHeader(),
+      method: 'POST',
+      data: {
+        id: e.currentTarget.dataset.id,
+        act: 'default'
+      },
+      success: function (res) {
+        var resp = res.data;
+        if (resp.code != 200) {
+          app.alert({ "content": resp.msg });
+          return;
+        }else{
+          app.alert({"content":resp.msg})
+        }
         that.setData({
-            addressList: [
-                {
-                    id:1,
-                    name: "编程浪子",
-                    mobile: "12345678901",
-                    detail: "上海市浦东新区XX",
-                    isDefault: 1
-                },
-                {
-                    id: 2,
-                    name: "编程浪子888",
-                    mobile: "12345678901",
-                    detail: "上海市浦东新区XX"
-                }
-            ]
+          list: resp.data.list
         });
-    }
+      }
+    });
+    wx.navigateBack({});
+  },
+
+  addressSet: function (e) {
+    wx.navigateTo({
+      url: "/pages/my/addressSet?id=" + e.currentTarget.dataset.id
+    })
+  },
+  getList: function () {
+    var that = this;
+    wx.request({
+      url: app.buildUrl("/my/address/index"),
+      header: app.getRequestHeader(),
+      success: function (res) {
+        var resp = res.data;
+        if (resp.code != 200) {
+          app.alert({ "content": resp.msg });
+          return;
+        }
+        that.setData({
+          list: resp.data.list
+        });
+      }
+    });
+  }
 });

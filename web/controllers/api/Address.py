@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 from web.controllers.api import route_api
-from flask import request, jsonify,g
+from flask import request, jsonify, g
 from application import app,db
 from common.libs.UrlManager import UrlManager
 from common.libs.Helper import getCurrentDate
@@ -9,7 +8,7 @@ from common.models.member.MemberAddress import MemberAddress
 
 @route_api.route("/my/address/index")
 def myAddressList():
-	resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
+	resp = {'code': 200,'msg':'操作成功~','data': {}}
 	member_info = g.member_info
 	list = MemberAddress.query.filter_by( status = 1, member_id = member_info.id )\
 		.order_by( MemberAddress.id.desc() ).all()
@@ -27,6 +26,7 @@ def myAddressList():
 	resp['data']['list'] = data_list
 	return jsonify(resp)
 
+# 添加或修改收获地址
 @route_api.route("/my/address/set",methods = [ "POST" ])
 def myAddressSet():
 	resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
@@ -35,7 +35,6 @@ def myAddressSet():
 	nickname = req['nickname'] if 'nickname' in req else ''
 	address = req['address'] if 'address' in req else ''
 	mobile = req['mobile'] if 'mobile' in req else ''
-
 	province_id = int( req['province_id'] ) if ( 'province_id' in req and req['province_id'] ) else 0
 	province_str = req['province_str'] if 'province_str' in req else ''
 	city_id = int( req['city_id'] ) if (  'city_id' in req  and  req['city_id'])else 0

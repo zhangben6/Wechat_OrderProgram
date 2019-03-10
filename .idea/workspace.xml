@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c08ee1d9-540b-42ed-93cc-96d46fd7d7aa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/libs/pay/PayService.py" afterPath="$PROJECT_DIR$/common/libs/pay/PayService.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/libs/pay/WeChatService.py" afterPath="$PROJECT_DIR$/common/libs/pay/WeChatService.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/libs/queue/QueueService.py" afterPath="$PROJECT_DIR$/common/libs/queue/QueueService.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/local_setting.py" afterPath="$PROJECT_DIR$/config/local_setting.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/production_setting.py" afterPath="$PROJECT_DIR$/config/production_setting.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jobs/launcher.py" afterPath="$PROJECT_DIR$/jobs/launcher.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jobs/tasks/queue/Index.py" afterPath="$PROJECT_DIR$/jobs/tasks/queue/Index.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/api/Address.py" afterPath="$PROJECT_DIR$/web/controllers/api/Address.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/api/Member.py" afterPath="$PROJECT_DIR$/web/controllers/api/Member.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/controllers/api/Order.py" afterPath="$PROJECT_DIR$/web/controllers/api/Order.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,51 +20,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Order.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/controllers/api/Order.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="235" column="29" lean-forward="true" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#708#2279#0" expanded="false" />
-                <element signature="e#2364#3092#0" expanded="false" />
-                <element signature="e#3169#4809#0" expanded="false" />
-                <element signature="e#4896#6790#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PayService.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/libs/pay/PayService.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="147" column="0" lean-forward="true" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
-              <folding>
-                <element signature="e#689#4454#0" expanded="false" />
-                <element signature="e#5627#5946#0" expanded="false" />
-                <element signature="e#6003#6175#0" expanded="false" />
-                <element signature="e#7994#8505#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="My.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/controllers/api/My.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-              <folding>
-                <element signature="e#3553#4351#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -137,20 +87,20 @@
         <option value="$PROJECT_DIR$/jobs/tasks/test/Index.py" />
         <option value="$PROJECT_DIR$/common/models/pay/OauthAccessToken.py" />
         <option value="$PROJECT_DIR$/common/models/pay/PayOrder.py" />
-        <option value="$PROJECT_DIR$/web/controllers/api/Member.py" />
         <option value="$PROJECT_DIR$/common/models/member/MemberComments.py" />
         <option value="$PROJECT_DIR$/web/controllers/api/My.py" />
         <option value="$PROJECT_DIR$/common/models/member/MemberAddress.py" />
         <option value="$PROJECT_DIR$/web/controllers/api/__init__.py" />
-        <option value="$PROJECT_DIR$/web/controllers/api/Address.py" />
         <option value="$PROJECT_DIR$/config/production_setting.py" />
         <option value="$PROJECT_DIR$/config/base_setting.py" />
         <option value="$PROJECT_DIR$/common/libs/queue/QueueService.py" />
         <option value="$PROJECT_DIR$/jobs/launcher.py" />
-        <option value="$PROJECT_DIR$/web/controllers/api/Order.py" />
         <option value="$PROJECT_DIR$/common/libs/pay/WeChatService.py" />
         <option value="$PROJECT_DIR$/jobs/tasks/queue/Index.py" />
         <option value="$PROJECT_DIR$/common/libs/pay/PayService.py" />
+        <option value="$PROJECT_DIR$/web/controllers/api/Member.py" />
+        <option value="$PROJECT_DIR$/web/controllers/api/Address.py" />
+        <option value="$PROJECT_DIR$/web/controllers/api/Order.py" />
       </list>
     </option>
   </component>
@@ -570,7 +520,7 @@
     <frame x="64" y="-11" width="1853" height="940" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12769486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12769486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -829,13 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/controllers/api/Member.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="27" column="33" lean-forward="true" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/interceptor/apiAuthInterceptor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
@@ -847,19 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/controllers/api/Address.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="120" column="28" lean-forward="false" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
-          <folding>
-            <element signature="e#24#65#0" expanded="true" />
-            <element signature="e#349#904#0" expanded="false" />
-            <element signature="e#984#3279#0" expanded="false" />
-            <element signature="e#4212#5100#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -876,7 +806,7 @@
         <state relative-caret-position="250">
           <caret line="25" column="54" lean-forward="true" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
           <folding>
-            <element signature="e#52#97#0" expanded="true" />
+            <element signature="e#52#97#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -894,7 +824,7 @@
         <state relative-caret-position="294">
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
-            <element signature="e#32#59#0" expanded="true" />
+            <element signature="e#32#59#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -912,7 +842,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#24#55#0" expanded="true" />
+            <element signature="e#24#55#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -946,7 +876,7 @@
         <state relative-caret-position="252">
           <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#0#30#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -972,7 +902,7 @@
         <state relative-caret-position="84">
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -994,7 +924,7 @@
         <state relative-caret-position="294">
           <caret line="91" column="18" lean-forward="true" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
           <folding>
-            <element signature="e#0#51#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1020,26 +950,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/controllers/api/Order.py">
+    <entry file="file://$PROJECT_DIR$/web/controllers/api/Member.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="235" column="29" lean-forward="true" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
+        <state relative-caret-position="420">
+          <caret line="135" column="18" lean-forward="false" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="18" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#708#2279#0" expanded="false" />
-            <element signature="e#2364#3092#0" expanded="false" />
-            <element signature="e#3169#4809#0" expanded="false" />
-            <element signature="e#4896#6790#0" expanded="false" />
+            <element signature="e#500#2389#0" expanded="false" />
+            <element signature="e#2473#3464#0" expanded="false" />
+            <element signature="e#3541#3954#0" expanded="false" />
+            <element signature="e#4030#4301#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/controllers/api/My.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        <state relative-caret-position="546">
+          <caret line="119" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
           <folding>
-            <element signature="e#3553#4351#0" expanded="false" />
+            <element signature="e#624#3487#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controllers/api/Address.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="85" column="31" lean-forward="true" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#326#878#0" expanded="false" />
+            <element signature="e#3325#4117#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/controllers/api/Order.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#2623#3351#0" expanded="false" />
+            <element signature="e#3428#5068#0" expanded="false" />
+            <element signature="e#5155#7049#0" expanded="false" />
+            <element signature="e#7142#8044#0" expanded="false" />
           </folding>
         </state>
       </provider>
