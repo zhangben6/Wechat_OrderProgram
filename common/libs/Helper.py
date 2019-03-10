@@ -118,3 +118,16 @@ def selectFilterObj(obj,field):
             continue
         ret.append(getattr(item,field))
     return ret
+
+
+# 获取格式化时间
+def getFormatDate(date=None,format="%Y-%m-%d %H:%M:%S"):
+    if date is None:
+        date = datetime.datetime.now()
+
+    return date.strftime(format)
+
+
+
+
+
