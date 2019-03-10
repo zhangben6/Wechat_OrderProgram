@@ -41,7 +41,7 @@ def myOrderList():
 
     # 获取前台传来的stauts数据,进而在数据库中查看对应的订单状态
     pay_order_list = query.order_by(PayOrder.id.desc()).all()
-
+    app.logger.info(pay_order_list)
     # 格式化数据,构建列表,用于返回给前台展示
     data_pay_order_list = []
 

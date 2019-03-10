@@ -5,7 +5,7 @@ App({
     globalData: {
         userInfo: null,
         version: "1.0",
-        shopName: "Rapzhang空间餐厅",
+        shopName: "Rapzhang时尚服饰",
       domain:"http://192.168.43.136:8666/api"
     },
     tip:function( params ){

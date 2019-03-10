@@ -136,7 +136,8 @@ def orderPay():
 
     # 设置回调地址  重要**************
     config_mina = app.config['MINA_APP']
-    notify_url = app.config['APP']['domain'] + config_mina['callback_url']
+    notify_url = 'http://120.78.170.188:8666' + config_mina['callback_url']
+    app.logger.info(notify_url)
     # 创建对象,引入微信下单的方法
     target_wechat = WeChatService(merchant_key=config_mina['paykey'])
 
@@ -155,7 +156,6 @@ def orderPay():
 
     # 重要操作: 1.生成签名  2.拼接数据转成xml格式 通过post方式发送为微信服务器,得到响应数据
     pay_info = target_wechat.get_pay_info(data)
-    app.logger.info('我爱你啊',pay_info)
     # 保存prepay_id为了后面发模板消息,prepay_id为第三方预付id
     pay_order_info.prepay_id = pay_info['prepay_id']
     db.session.add(pay_order_info)
@@ -199,6 +199,7 @@ def callBack():
     # 取出订单号查询对应的订单信息
     order_sn = callback_data['out_trade_no']
     pay_order_info = PayOrder.query.filter_by(order_sn=order_sn).first()
+    app.logger.info('牛逼',pay_order_info)
     if not pay_order_info:
         result_data['return_code'] = result_data['return_msg'] = 'FAIL'
         return target_wechat.dict_to_xml(result_data), header

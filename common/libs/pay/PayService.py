@@ -230,6 +230,7 @@ class PayService():
         else:
             model_callback.refund_data = data  # 退款回调信息
             model_callback.pay_data = ''
+        app.logger.info(model_callback.pay_data)
 
         model_callback.created_time = model_callback.updated_time = getCurrentDate()
         db.session.add(model_callback)

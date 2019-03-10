@@ -15,11 +15,11 @@
          <!-- <image class="smalltitle" src="/images/more/confirm-word1.png"></image> -->
 
         <view class="confirm-btn" bindtap='goToIndex' wx:if="{{regFlag==true}}">
-          <text >Let's Go 订餐去</text>
+          <text >穿搭从未如此简单 Let's Go</text>
         </view>
         <button class="confirm-btn" open-type="getUserInfo" bindgetuserinfo="login" wx:if="{{regFlag==false}}">授权登录</button>
          
-        <text class="copyright">@zhangben6</text>
+        <text class="copyright">Email:rapzhang97@163.com</text>
       </view>
     </view>
   </block>
