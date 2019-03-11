@@ -1,4 +1,4 @@
-# Python Flask 订餐系统
+# Python Flask 在线服装采购小程序
 
 ### author: rapzhang
 ### env: python3.5
