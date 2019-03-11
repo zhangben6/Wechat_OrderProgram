@@ -9,8 +9,8 @@
                             <h5>营收概况</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">1005.00</h1>
-                            <small>近30日：31177.00</small>
+                            <h1 class="no-margins">{{data.finance.today}}</h1>
+                            <small>近30日：{{data.finance.month}}</small>
                         </div>
                     </div>
                 </div>
@@ -21,8 +21,8 @@
                             <h5>订单</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">988</h1>
-                            <small>近30日：29383</small>
+                            <h1 class="no-margins">{{data.order.today}}</h1>
+                            <small>近30日：{{data.order.month}}</small>
                         </div>
                     </div>
                 </div>
@@ -33,9 +33,9 @@
                             <h5>会员</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">358</h1>
-                            <small>今日新增：77</small>
-                            <small>近30日新增：2454</small>
+                            <h1 class="no-margins">{{data.member.total}}</h1>
+                            <small>今日新增：{{data.member.total_new}}&nbsp;</small>
+                            <small> &nbsp;&nbsp;&nbsp;近30日新增：{{data.member.month_new}}</small>
                         </div>
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                             <h5>分享</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">1250</h1>
-                            <small>近30日：45980</small>
+                            <h1 class="no-margins">{{data.shared.today}}</h1>
+                            <small>近30日：{{data.shared.month}}</small>
                         </div>
                     </div>
                 </div>
@@ -62,3 +62,16 @@
             </div>
         </div>
 {% endblock %}
+{% block js %}
+<script src="{{buildStaticUrl('/plugins/highcharts/highcharts.js')}}"></script>
+<script src="{{buildStaticUrl('/js/index/index.js')}}"></script>
+<script src="{{buildStaticUrl('/js/charts.js')}}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
