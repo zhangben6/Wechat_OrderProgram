@@ -35,7 +35,6 @@ def index():
     now = datetime.datetime.now()
     date_before_30day = now + datetime.timedelta(days=-30)
     date_from = getFormatDate(date = date_before_30day,format='%Y-%m-%d')
-
     # 当前的时间
     date_to = getFormatDate(date=now,format='%Y-%m-%d')
 
