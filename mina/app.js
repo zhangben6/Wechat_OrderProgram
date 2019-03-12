@@ -6,7 +6,7 @@ App({
         userInfo: null,
         version: "1.0",
         shopName: "Rapzhang时尚服饰",
-      domain:"http://192.168.43.136:8666/api"
+      domain:"http://120.78.170.188:8778/api"
     },
     tip:function( params ){
         var that = this;
