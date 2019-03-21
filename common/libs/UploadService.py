@@ -10,10 +10,12 @@ class UploadService():
         # 也需要定义resp用于返回信息
         config_upload = app.config['UPLOAD']
         resp = {'code':200,'msg':'操作成功',"data":{}}
+
         # 通过安全的方式获取文件名,但这里这个方法行不通
         # filename = secure_filename(file.filename)
         filename = file.filename
         app.logger.info(filename)
+
         # 以第一个点进行切割,取后面的值
         ext = filename.rsplit('.',1)[1]
         if ext not in config_upload['ext']:
@@ -31,7 +33,9 @@ class UploadService():
         save_dir = root_path + file_dir
 
         if not os.path.exists(save_dir):
+            # 创建文件夹
             os.mkdir(save_dir)
+
             # 让拥有者有777的权限和组用户有读权限,其他用户全部权限
             os.chmod(save_dir,stat.S_IRWXU | stat.S_IRGRP | stat.S_IRWXO)
 

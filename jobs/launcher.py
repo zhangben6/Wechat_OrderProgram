@@ -48,7 +48,6 @@ class runJob( Command ):
         except Exception as e:
             traceback.print_exc()
 
-
     def tips(self):
         tip_msg = '''
             请正确调度Job

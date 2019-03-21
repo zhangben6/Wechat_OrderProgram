@@ -10,6 +10,7 @@ var upload = {
         var html = '<img src="' + common_ops.buildPicUrl(file_key) + '"/>'
                 + '<span class="fa fa-times-circle del del_image" data="' + file_key + '"></span>';
 
+        // 如果没有图片直接渲染，如果有图片直接进行渲染
         if ($(".upload_pic_wrap .pic-each").size() > 0) {
             $(".upload_pic_wrap .pic-each").html(html);
         } else {
@@ -28,9 +29,12 @@ var food_set_ops = {
     eventBind: function () {
         var that = this;
 
+
+        // 图片无刷新上传的出发ｊｓ代码
         $(".wrap_food_set .upload_pic_wrap input[name=pic]").change(function () {
             $(".wrap_food_set .upload_pic_wrap").submit();
         });
+
 
         $(".wrap_food_set select[name=cat_id]").select2({
             language: "zh-CN",
@@ -141,6 +145,8 @@ var food_set_ops = {
     },
     initEditor: function () {
         var that = this;
+
+        // 定制化工具栏的内容
         that.ue = UE.getEditor('editor', {
             toolbars: [
                 ['undo', 'redo', '|',
@@ -154,6 +160,7 @@ var food_set_ops = {
                     'horizontal', 'spechars', '|', 'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols']
 
             ],
+            // 自定义的设置
             enableAutoSave: true,
             saveInterval: 60000,
             elementPathEnabled: false,

@@ -87,6 +87,7 @@ class JobTask():
         # 首先拿出对应token_access 用于发送post请求
         target_wechat = WeChatService()
         access_token = target_wechat.getAccessToken()
+
         url = 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=%s'%(access_token)
         headers = {'Content-Type':'application/json'}
         params = {
@@ -117,7 +118,7 @@ class JobTask():
 
         r = requests.post(url=url,data=json.dumps(params),headers=headers)
         r.encoding = 'utf-8'
-
+        # image_data = target_wechat.getImage()
         app.logger.info(r.text)
         return True
 

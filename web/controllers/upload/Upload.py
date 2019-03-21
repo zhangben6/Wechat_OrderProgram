@@ -53,7 +53,6 @@ def uploadPic():
     return "<script type='text/javascript'>{0}.success('{1}')</script>".format(callback_target, ret['data']['file_key'])
 
 
-
 def uploadImage():
     resp = {'state':'SUCCESS','url':'','title':'','original':''}
     file_target = request.files
@@ -63,9 +62,12 @@ def uploadImage():
         return jsonify(resp)
     # 上传文件的操作,使用统一封装好的类
     ret = UploadService.uploadByFile(upfile)
+
+
     if ret['code'] != 200:
         resp['state'] = '上传失败' + ret['msg']
         return jsonify(resp)
+
     # 设置返回图片的url地址
     resp['url'] = UrlManager.buildImageUrl(ret['data']['file_key'])
     return jsonify(resp)

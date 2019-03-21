@@ -35,7 +35,7 @@ STATUS_MAPPING = {
 
 MINA_APP = {
     'appid':'wx735418c8e222b586',
-    'appkey':'3321dfea86eaf7005221b53d7189804d',
+    'appkey':'9a1652581b22b4a83edbc9fee78389ac',
     'paykey': 'ZHANZAIZUIGAOCHUDENAGERENzhang97',
     'mch_id':'1528260971',
     'callback_url':'/api/order/callback'
@@ -50,7 +50,7 @@ UPLOAD = {
 
 # 设置自己主机的域名
 APP = {
-    'domain': 'http://192.168.43.136:8666',
+    'domain': 'http://192.168.12.128:8666',
 }
 
 

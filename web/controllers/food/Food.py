@@ -10,7 +10,6 @@ from common.libs.UrlManager import UrlManager
 from common.libs.food.FoodService import FoodService
 from application import app,db
 
-
 route_food = Blueprint( 'food_page',__name__ )
 
 @route_food.route( "/index" )
@@ -158,6 +157,7 @@ def set():
     return jsonify(resp)
 
  # 分类列表页面
+
 @route_food.route( "/cat" )
 def cat():
     # 分页功能的实现
@@ -168,6 +168,8 @@ def cat():
     if 'status' in req and int(req['status']) > -1:
         query = query.filter(FoodCat.status == req['status'])
 
+
+    # 先按照权重排列，然后再按照ｉｄ排列
     list = query.order_by(FoodCat.weight.desc(),FoodCat.id.desc()).all()
     resp_data['list'] = list
     resp_data['status_mapping'] = app.config['STATUS_MAPPING']

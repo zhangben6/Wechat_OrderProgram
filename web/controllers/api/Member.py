@@ -28,7 +28,7 @@ def login():
     openid = MemberService.getWechatOpenid(code)
     if openid is None:
         resp['code'] = -1
-        resp['msg'] = '调用威信出错'
+        resp['msg'] = '调用威信出错1'
         return jsonify(resp)
 
     # 获取会员的信息 后用于存数据库

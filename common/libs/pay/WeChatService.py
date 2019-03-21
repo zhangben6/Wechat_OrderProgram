@@ -125,7 +125,7 @@ class WeChatService():
 
         # 开发者文档此处的返回值是json格式数据
         data = json.loads(r.text)
-
+        app.logger.info(data)
         #　到期时间对应的时间戳(expires_in = 7200)
         now = datetime.datetime.now()
         date = now + datetime.timedelta(seconds=data['expires_in']-200)
@@ -140,6 +140,25 @@ class WeChatService():
 
         return data['access_token']
 
+    def getImage(self):
+
+        access_token1 = OauthAccessToken.query.filter_by(id=1).first()
+        # url = 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=ACCESS_TOKEN'
+        url = 'https://api.weixin.qq.com/wxa/getwxacode?access_token=ACCESS_TOKEN'
+        headers = {
+            'content-type': 'application/json'
+        }
+        data = {
+            'access_token': access_token1.access_token,
+            'path': "pages/index/index",
+            'width': 280
+        }
+        data = json.dumps(data)
+        print(data)
+
+        r = requests.post(url=url, data=data)
+        r.encoding = 'utf-8'
+        return r.text
 
 
 
