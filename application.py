@@ -8,17 +8,22 @@ import os
 class Application(Flask):
     def __init__(self,import_name,template_folder=None,root_path=None):
         super(Application,self).__init__(import_name,template_folder=template_folder,root_path=root_path,static_folder=None)
+
+        # 加载默认配置文件
         self.config.from_pyfile('config/base_setting.py')
 
+        # 通过在终端设置不同的环境变量，加载本地和生产环境配置文件
         if 'ops_config' in os.environ:
             self.config.from_pyfile('config/%s_setting.py'%os.environ['ops_config'])
 
+        # 配置db变量,相当于db= SQLAlchemy(app)
         db.init_app(self)
 
 
 db = SQLAlchemy()
 app = Application(__name__,template_folder=os.getcwd()+'/web/templates',root_path=os.getcwd())
 manager = Manager(app)
+
 
 '''
 在模板上使用函数

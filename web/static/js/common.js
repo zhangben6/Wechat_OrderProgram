@@ -140,7 +140,7 @@ var common_ops = {
         }, 100);
     },
 
-    // url链接管理器
+    // url链接管理器,其中params是字典类型的数据,如{a:'b',c:'d'},转换格式之后会变成a=b&c=d
     buildUrl:function(path,params){
         var url = '' + path;
         var _paramUrl = '';

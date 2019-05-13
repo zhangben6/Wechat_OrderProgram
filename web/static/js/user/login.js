@@ -10,7 +10,7 @@ var user_login_ops = {
            var btn_target = $(this);
 
            if(btn_target.hasClass('disabled')){
-               common_ops.alert('正在处理!!请不要重复提交');
+               common_ops.alert('正在处理! 请不要重复提交哦~');
                return;
            }
 
@@ -30,13 +30,17 @@ var user_login_ops = {
 
            btn_target.addClass('disabled');
 
+
            $.ajax({
                 url:common_ops.buildUrl('/user/login'),
                 type:'POST',
                 data:{'login_name':login_name,'login_pwd':login_pwd},
                 dataType:'json',
                 success:function (res) {
+                    // 当收到后台的json响应时，撤回Class
                     btn_target.removeClass('disabled');
+
+                    // 定义一个回调函数
                     var callback = null;
                     if(res.code == 200){
                         callback = function(){

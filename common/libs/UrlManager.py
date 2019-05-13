@@ -16,7 +16,7 @@ class UrlManager(object):
         return UrlManager.buildUrl( path )
 
     @staticmethod
-    # 拼接图片显示的url地址
     def buildImageUrl(path):
+        '''拼接图片显示的url地址'''
         url = app.config['APP']['domain'] + app.config['UPLOAD']['prefix_url'] + path
         return url
